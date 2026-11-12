@@ -1,0 +1,14 @@
+{
+  "client_id": "https://cedarwood.studio/oauth/upwork-mcp/client.json",
+  "client_name": "Cedarwood Studio brain",
+  "client_uri": "https://cedarwood.studio",
+  "logo_uri": "https://cedarwood.studio/favicon.svg",
+  "redirect_uris": [
+    "https://cedarwood.studio/oauth/upwork-mcp/callback.html"
+  ],
+  "grant_types": ["authorization_code", "refresh_token"],
+  "response_types": ["code"],
+  "token_endpoint_auth_method": "none",
+  "software_id": "locomotive-upwork-mcp",
+  "software_version": "0.1"
+}

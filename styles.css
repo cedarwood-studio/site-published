@@ -1,0 +1,227 @@
+/* ==========================================================================
+   Cedarwood Studio
+   One stylesheet. No framework, no build step.
+
+   Palette — six tokens named from cedar anatomy:
+     sapwood    the pale outer wood         page ground
+     bark       dark, warm, weathered       ink
+     heartwood  the red core, muted         one accent, used sparingly
+     shadow     forest-floor green          links and interactive state
+     lichen     grey-green                  secondary text
+     grain      ring lines                  hairlines and dividers
+   plus `panel`, a single lifted surface, kept in the tokens for when a
+   portfolio page returns.
+
+   Type: Spectral (display serif, Light/Regular) + IBM Plex Sans (body)
+   ========================================================================== */
+
+/* --- tokens: light (complete set lives here) ----------------------------- */
+
+:root {
+  --sapwood:   #eff0ea;
+  --panel:     #e5e7dd;
+  --bark:      #2e2721;
+  --heartwood: #a2452f;
+  --shadow:    #34503f;
+  --lichen:    #62665b;
+  --grain:     #c9ccbe;
+
+  --font-display: "Spectral", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* restrained scale: five steps, one fluid */
+  --t-xs:   0.8125rem;
+  --t-s:    0.9375rem;
+  --t-base: 1.0625rem;
+  --t-m:    1.3125rem;
+  --t-l:    1.75rem;
+  --t-xl:   clamp(2.125rem, 1.35rem + 2.8vw, 3.25rem);
+
+  --s1: 0.375rem;
+  --s2: 0.75rem;
+  --s3: 1.25rem;
+  --s4: 2rem;
+  --s5: 3rem;
+  --s6: 4.5rem;
+  --s7: 6.5rem;
+
+  --measure: 35rem;     /* ~65 characters of body text */
+  --column:  44rem;
+
+  color-scheme: light;
+}
+
+/* --- tokens: dark. Designed, not inverted — the ground is bark-shadow,
+       the ink is sapwood, and both accents are re-mixed for the dark
+       ground rather than reused from above. -------------------------------- */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --sapwood:   #1a1714;
+    --panel:     #231f1a;
+    --bark:      #e7e5dc;
+    --heartwood: #d98c72;
+    --shadow:    #93b79d;
+    --lichen:    #9fa195;
+    --grain:     #352f28;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --sapwood:   #1a1714;
+  --panel:     #231f1a;
+  --bark:      #e7e5dc;
+  --heartwood: #d98c72;
+  --shadow:    #93b79d;
+  --lichen:    #9fa195;
+  --grain:     #352f28;
+  color-scheme: dark;
+}
+
+/* --- base ---------------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--sapwood);
+  color: var(--bark);
+  font-family: var(--font-body);
+  font-size: var(--t-base);
+  line-height: 1.65;
+  font-weight: 400;
+  padding-inline: clamp(1.25rem, 5vw, 2.5rem);
+  padding-block: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+p, ul, ol, dl, dd { margin: 0; }
+ul, ol { padding: 0; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  margin: 0;
+  line-height: 1.18;
+  text-wrap: balance;
+  letter-spacing: -0.005em;
+}
+
+h1 { font-size: var(--t-xl); font-weight: 300; line-height: 1.08; letter-spacing: -0.015em; }
+h2 { font-size: var(--t-l); }
+h3 { font-size: var(--t-m); }
+
+a { color: var(--shadow); text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+a:hover { color: var(--heartwood); }
+
+:focus-visible {
+  outline: 2px solid var(--heartwood);
+  outline-offset: 3px;
+}
+
+strong { font-weight: 600; }
+
+/* --- layout -------------------------------------------------------------- */
+
+.column { max-width: var(--column); margin-inline: auto; }
+.measure { max-width: var(--measure); }
+
+.stack { display: flex; flex-direction: column; }
+.stack-1 { gap: var(--s1); }
+.stack-2 { gap: var(--s2); }
+.stack-3 { gap: var(--s3); }
+.stack-4 { gap: var(--s4); }
+.stack-5 { gap: var(--s5); }
+
+main > section { padding-block: 0 var(--s6); }
+
+.hair { height: 1px; background: var(--grain); border: 0; margin: 0; }
+
+.lead {
+  font-size: var(--t-m);
+  line-height: 1.5;
+  color: var(--bark);
+  font-weight: 300;
+}
+
+/* --- masthead ------------------------------------------------------------ */
+
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--bark);
+  color: var(--sapwood);
+  padding: 0.6rem 1rem;
+  z-index: 10;
+}
+.skip:focus { left: clamp(1.25rem, 5vw, 2.5rem); top: 0.5rem; }
+
+.masthead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2) var(--s4);
+  padding-block: var(--s4) var(--s6);
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  letter-spacing: 0.04em;
+  color: var(--bark);
+  text-decoration: none;
+}
+.wordmark svg { display: block; flex: none; }
+.wordmark .ring-pith { fill: var(--heartwood); }
+.wordmark .ring { stroke: var(--bark); fill: none; }
+.wordmark .billet { fill: none; stroke: var(--bark); stroke-width: 1.15; }
+a.wordmark:hover .billet { stroke: var(--heartwood); }
+.wordmark b { font-weight: 500; }
+.wordmark span { color: var(--lichen); font-weight: 400; }
+a.wordmark:hover { color: var(--bark); }
+a.wordmark:hover .ring { stroke: var(--heartwood); }
+
+/* --- hero ---------------------------------------------------------------- */
+
+.hero { padding-block: 0 var(--s7); }
+.hero h1 { max-width: var(--measure); }
+
+/* --- footer -------------------------------------------------------------- */
+
+.site-footer {
+  padding-block: var(--s4) var(--s5);
+  border-top: 1px solid var(--grain);
+}
+.site-footer .copyright {
+  font-size: var(--t-xs);
+  color: var(--lichen);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- honest motion: effectively none ------------------------------------- */
+
+a { transition: color 120ms linear, background-color 120ms linear, border-color 120ms linear; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --- print --------------------------------------------------------------- */
+
+@media print {
+  body { background: #fff; color: #000; }
+}

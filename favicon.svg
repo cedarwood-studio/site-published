@@ -1,24 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-  <title>Cedarwood Studio</title>
-  <style>
-    .ground { fill: #eff0ea; }
-    .ring { fill: none; stroke: #2e2721; stroke-width: 2.2; }
-    .pith { fill: #a2452f; }
-    @media (prefers-color-scheme: dark) {
-      .ground { fill: #1a1714; }
-      .ring { stroke: #e7e5dc; }
-      .pith { fill: #d98c72; }
-    }
-  </style>
-  <rect class="ground" width="32" height="32"/>
-  <clipPath id="billet"><rect x="2" y="2" width="28" height="28"/></clipPath>
-  <g clip-path="url(#billet)">
-    <g class="ring">
-      <circle cx="11" cy="23" r="6"/>
-      <circle cx="11" cy="23" r="13"/>
-      <circle cx="11" cy="23" r="21"/>
-      <circle cx="11" cy="23" r="30"/>
-    </g>
-    <circle class="pith" cx="11" cy="23" r="2.6"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Cedarwood Studio">
+  <!-- The C of the wordmark (Newsreader Medium, drawn as a path) and its stop, reversed on Ink. -->
+  <rect width="48" height="48" fill="#1B1D1A"/>
+  <path fill="#F4F2EC" transform="translate(7.2 35.6) scale(0.0172 -0.0172)" d="M888 93Q964 93 1036 106Q1108 119 1182 148L1111 93L1263 386H1332L1295 57Q1218 22 1104 0Q989 -22 859 -22Q683 -22 541 24Q399 69 299 157Q199 245 146 373Q92 501 93 664Q93 880 188 1040Q282 1200 461 1287Q639 1374 890 1374Q959 1374 1026 1365Q1092 1356 1178 1335L1113 1324L1235 1417H1276L1328 933L1258 925L1095 1238L1154 1174Q1070 1221 1001 1239Q931 1257 851 1257Q719 1257 620 1222Q521 1188 455 1121Q389 1054 356 957Q322 860 322 735Q321 578 363 458Q404 339 480 257Q556 176 660 135Q764 93 888 93Z"/>
+  <rect x="34" y="29.6" width="6" height="6" fill="#C0582C"/>
 </svg>

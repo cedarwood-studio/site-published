@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GitHub Actions CI diagnostic: why your CI is slow and which tests are flaky, $500 fixed | Cedarwood Studio</title>
+<meta name="description" content="A fixed-price diagnostic of a slow or flaky GitHub Actions pipeline, measured from its own run history. A written report with the query behind every number. $500. Failing tests are named for pytest and unittest.">
+<link rel="canonical" href="https://cedarwood.studio/github-actions-ci-diagnostic/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cedarwood Studio">
+<meta property="og:title" content="GitHub Actions CI diagnostic: why your CI is slow and which tests are flaky, $500 fixed | Cedarwood Studio">
+<meta property="og:description" content="A fixed-price diagnostic of a slow or flaky GitHub Actions pipeline, measured from its own run history. A written report with the query behind every number. $500. Failing tests are named for pytest and unittest.">
+<meta property="og:url" content="https://cedarwood.studio/github-actions-ci-diagnostic/">
+<meta property="og:image" content="https://cedarwood.studio/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"CI Diagnostic","serviceType":"GitHub Actions CI diagnostic","description":"A fixed-price diagnostic of a slow or flaky GitHub Actions pipeline, measured from its own run history. A written report with the query behind every number. $500. Failing tests are named for pytest and unittest.","url":"https://cedarwood.studio/github-actions-ci-diagnostic/","provider":{"@type":"ProfessionalService","@id":"https://cedarwood.studio/#studio","name":"Cedarwood Studio by Jack Senechal","alternateName":"Cedarwood Studio","url":"https://cedarwood.studio/","email":"hello@cedarwood.studio","founder":{"@type":"Person","name":"Jack Senechal","url":"https://cedarwood.studio/about/"},"address":{"@type":"PostalAddress","addressLocality":"Novato","addressRegion":"CA","addressCountry":"US"}},"offers":{"@type":"Offer","price":"500.00","priceCurrency":"USD","url":"https://cedarwood.studio/github-actions-ci-diagnostic/","availability":"https://schema.org/InStock","eligibleCustomerType":"https://schema.org/Business"},"dateModified":"2026-11-17"}</script>
+</head>
+<body data-asset="offer-github-actions-ci-diagnostic">
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="lockup" href=".././" aria-label="Cedarwood Studio by Jack Senechal, home">
+      <span class="lockup-name">Cedarwood Studio<span class="stop" aria-hidden="true"></span></span>
+      <span class="lockup-rule" aria-hidden="true"></span>
+      <span class="lockup-credit">by Jack Senechal</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="../github-actions-ci-diagnostic/">CI Diagnostic</a></li>
+        <li><a href="../about/">About</a></li>
+        <li><a class="cta small" href="../rails-upgrade-roadmap/">Rails Upgrade Roadmap <span class="amt">$2,500</span></a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero"><div class="wrap pair">
+<div class="hero-copy">
+  <p class="eyebrow">CI Diagnostic · $500 fixed</p>
+  <h1>Find out why your GitHub Actions CI is slow, and which jobs fail and then pass on re-run.</h1>
+  <p class="lead measure">For a fixed $500 you get a written report built from your pipeline's own run history. It measures how long a run takes and where the time goes, how often runs fail and get re-run, and which jobs failed and then passed on the same commit. Every number comes with the query that produced it, so you can run it again yourself.</p>
+  <p class="coverage"><strong>Covers:</strong> GitHub Actions. Failing tests are named for pytest and unittest. With other test runners you get the run-level numbers and the jobs and steps that failed. CircleCI isn't offered.</p>
+  <p class="updated">Last updated <time datetime="2026-11-17">November 17, 2026</time></p>
+</div>
+<aside class="sheet" aria-label="CI Diagnostic, price and terms">
+  <div class="sheet-head">
+    <span class="sheet-name"><span class="sheet-label">Fixed price</span><span class="sheet-title">CI Diagnostic</span></span>
+    <span class="sheet-price">$500</span>
+  </div>
+  <dl class="sheet-grid">
+    <div><dt>You send</dt><dd>Read access to the repository and its workflow runs. We read CI history and workflow files</dd></div>
+    <div><dt>You get</dt><dd>A written report, with the query behind each number</dd></div>
+    <div><dt>When</dt><dd>We agree on the delivery date before you pay</dd></div>
+    <div><dt>Payment</dt><dd>By card through Stripe, before work starts</dd></div>
+    <div class="wide"><dt>Covers</dt><dd>GitHub Actions. Failing tests named for pytest and unittest. Other test runners get run-level numbers.</dd></div>
+  </dl>
+  <div class="sheet-foot">
+    <a class="cta block" href="mailto:hello@cedarwood.studio?subject=CI%20Diagnostic&amp;body=Hello%2C%0A%0AWe'd%20like%20a%20CI%20Diagnostic.%20Here's%20what%20you%20asked%20for%3A%0A%0ARepository%3A%0A%0ATest%20runner%3A%0A%0AWhat%20hurts%20most%3A%0A%0ARoughly%20how%20many%20runs%20a%20week%3A%0A%0AHow%20you%20found%20us%3A%0A">Email to start a CI Diagnostic</a>
+    <span class="note">You don't need a call to buy it. <a href="#buy">How to buy</a>.</span>
+  </div>
+</aside>
+</div></section>
+
+<section class="band"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">A</span>
+    <h2>What the report measures</h2>
+  </div>
+  <div class="split-body prose">
+  <p>It's for a team that waits on CI every day. Builds that used to take five minutes now take twenty, and a failed run gets retried before anyone reads the log.</p>
+  <ul>
+    <li><strong>Run time and runner minutes.</strong> The median over the last 30 days of runs on your main branch and pull requests, or the last 100 runs if those reach back further, and where the time goes by job and by step.</li>
+    <li><strong>Failure rate and re-run rate,</strong> and which jobs and steps fail. The report states the window each rate was measured over, and says when that window is too short to judge a rare failure.</li>
+    <li><strong>Jobs that failed and then passed on the same commit.</strong> For pytest and unittest the report names the tests the job log names, ranks them, quotes the error line and links the log. It doesn't say why a test is flaky. The names come from job logs, which GitHub keeps for 90 days by default, and some failures name no test, like a step that ran past its time limit.</li>
+    <li><strong>Third-party actions</strong> that aren't pinned to a fixed version, are archived, or run on a runtime GitHub has deprecated.</li>
+    <li><strong>Dependency caches</strong> that are missing or aren't being hit. We read the hit rate from job logs.</li>
+    <li><strong>The changes, ranked by what they save,</strong> each with its size.</li>
+  </ul>
+  <p>Where the top change is a speed fix that can be tested on a fork, we test that one change there and show the runs before and after. For a private repository that takes a fork you give us access to. It's optional, and you get the full report without it. We don't need write access to your own repository.</p>
+  <p><strong>How you can check it.</strong> The report prints the query behind each number, and the data it ran on comes with it.</p>
+  <p>An engineer with the GitHub CLI could pull most of these numbers in an afternoon. What the $500 buys is that afternoon, each rate with the window it was measured over, a named person answering for the report and, where the top change is a speed fix that can be tested on a fork, that fix shown by runs before and after.</p>
+  </div>
+</div></section>
+
+<section class="band bench" id="sample"><div class="wrap pair">
+  <div class="prose">
+  <p class="eyebrow">Public samples</p>
+  <h2>Two reports you can read first</h2>
+  <p>Two complete reports are public at <a href="https://github.com/cedarwood-studio/ci-diagnostic-sample">cedarwood-studio/ci-diagnostic-sample</a>, with the tool that produced them and the data behind every number. We built them from public data on two open-source projects, wagtail/wagtail and temporalio/sdk-python. Neither project asked for a report, and we aren't affiliated with either.</p>
+  <p>The first shows a slow pipeline and a three-line fix tested on a fork. The second shows a pipeline where people press re-run, with the tests that failed and then passed on the same commit named and ranked.</p>
+  <p>The tested fix in the card ran three times before the change and four times after, which is a small demonstration.</p>
+  <p><a class="more" href="https://github.com/cedarwood-studio/ci-diagnostic-sample">Read the sample reports</a></p>
+  </div>
+  <figure>
+    <div class="report-card">
+      <div class="report-meta"><span>CI Diagnostic · Sample report</span><span>wagtail/wagtail · 2026-11-12</span></div>
+      <div class="report-h">The short version</div>
+      <table class="report-table">
+        <thead><tr><th scope="col">Measure</th><th scope="col" class="num">Value</th><th scope="col" class="num">Runs</th></tr></thead>
+        <tbody>
+          <tr><td>Median time to a verdict on main</td><td class="num">23:27</td><td class="num">73</td></tr>
+          <tr><td>90th percentile</td><td class="num">27:31</td><td class="num">73</td></tr>
+          <tr><td>Runner minutes a run</td><td class="num">144</td><td class="num">73</td></tr>
+          <tr><td>Median run before the tested fix</td><td class="num">25:07</td><td class="num">3</td></tr>
+          <tr><td>Median run after the tested fix</td><td class="num">15:38</td><td class="num">4</td></tr>
+        </tbody>
+      </table>
+      <div class="report-h">Reproduce these numbers</div>
+      <pre class="report-cmd"><span class="prompt">$</span> python -m cidiag query main.summary</pre>
+    </div>
+    <figcaption>Numbers from the public sample report on wagtail/wagtail, as of November 12, 2026. An unsolicited sample.</figcaption>
+  </figure>
+</div></section>
+
+<section class="band" id="limits"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">B</span>
+    <h2>What it doesn't cover</h2>
+  </div>
+  <div class="split-body prose">
+  <ul>
+    <li><strong>Why a test is flaky, or a fix for it.</strong> The report names the test and shows the evidence. Finding the cause is separate work, and we don't sell it today.</li>
+    <li><strong>Your application code.</strong> It reads CI history and workflow files. It isn't a security audit, a code review or an assessment of test quality.</li>
+    <li><strong>A guaranteed finding.</strong> A well-kept pipeline may have little to change, and then the report says so.</li>
+    <li><strong>Anything the history doesn't hold.</strong> Each report has a section on what couldn't be measured from the data and why.</li>
+  </ul>
+  </div>
+</div></section>
+
+<section class="band" id="trust"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">C</span>
+    <h2>Who answers for it, and how your code is handled</h2>
+  </div>
+  <div class="split-body prose">
+  <dl class="facts">
+    <dt>Accountable</dt><dd>Jack Senechal. Cedarwood Studio is his business name, and he's a sole proprietor in Novato, California. He built and maintained CI/CD pipelines as an infrastructure engineer at Tobiko, and designed and operated them at Mavenlink (now Kantata). <a href="../about/">About the studio</a>.</dd>
+    <dt>Public record</dt><dd>The <a href="https://github.com/cedarwood-studio/ci-diagnostic-sample">sample repository</a> holds both reports, the measurement tool and the stored data, and its commands recompute every number from the stored data.</dd>
+    <dt>How the work is done</dt><dd>With AI tooling and automated verification. The AI tool is Anthropic's Claude, with model training on our data turned off. A person reviews the report before it's delivered.</dd>
+    <dt>Your code and logs</dt><dd>We ask for read access to your repository and nothing in production. The optional fix test needs a fork we can push to. Workflow files and job logs are sent, in whole or in part, to Anthropic's Claude to do the work. The evidence that comes with the report holds test names and error lines from your job logs. We delete our copies when you ask, and the terms list what we keep. What passes through Anthropic is held there under its retention policy, which we don't control.</dd>
+    <dt>Paperwork</dt><dd>We can sign a mutual NDA before you send anything, and the terms say what we don't sign. We don't sign master service agreements or security addenda for fixed-price work. The terms also say <a href="../terms/#handling">how we handle your code and data</a>.</dd>
+  </dl>
+  </div>
+</div></section>
+
+<section class="band" id="scope"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">D</span>
+    <h2>What it covers today</h2>
+  </div>
+  <div class="split-body prose">
+  <dl class="facts">
+    <dt>Full report</dt><dd>GitHub Actions with pytest or unittest. Failing tests are named and ranked. The public sample shows this on pytest.</dd>
+    <dt>Run-level report</dt><dd>GitHub Actions with any other test runner. You get every number above and the jobs and steps that failed. The report doesn't name individual tests.</dd>
+    <dt>Not offered</dt><dd>CircleCI and other CI systems.</dd>
+  </dl>
+  </div>
+</div></section>
+
+<section class="band" id="buy"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">E</span>
+    <h2>How to buy</h2>
+  </div>
+  <div class="split-body prose">
+  <p>There's no call to book. Four steps, by email. We sell to businesses only, and the scope refers to the <a href="../terms/">terms</a>.</p>
+  <ol class="steps">
+    <li>Email <a href="mailto:hello@cedarwood.studio?subject=CI%20Diagnostic&amp;body=Hello%2C%0A%0AWe'd%20like%20a%20CI%20Diagnostic.%20Here's%20what%20you%20asked%20for%3A%0A%0ARepository%3A%0A%0ATest%20runner%3A%0A%0AWhat%20hurts%20most%3A%0A%0ARoughly%20how%20many%20runs%20a%20week%3A%0A%0AHow%20you%20found%20us%3A%0A">hello@cedarwood.studio</a> with the things listed under "What to send." The link opens a message with the list already in it.</li>
+    <li>We reply by email with what the report will cover for your pipeline and a one-page written scope with the delivery date, for you to accept by email. If the Diagnostic doesn't fit, we say so and you pay nothing.</li>
+    <li>We send a Stripe payment link for $500 before work begins. Work starts when it's paid and we have the access.</li>
+    <li>You get the report by the agreed date, with the data and the query behind each number.</li>
+  </ol>
+  <h3>What to send</h3>
+  <ul>
+    <li><strong>Repository.</strong> A link if it's public. If it's private, say so, and we'll say how to give read access to the repository and its workflow runs.</li>
+    <li><strong>Test runner.</strong> pytest, unittest or something else. It decides whether the report can name failing tests.</li>
+    <li><strong>What hurts most.</strong> One sentence on slow runs, runs that fail and pass on re-run, the bill, or something else.</li>
+    <li><strong>Roughly how many runs a week.</strong> So we know how far back the history has to reach.</li>
+    <li><strong>How you found us.</strong> A search, an assistant's answer, a link someone sent. It helps us know which pages are worth keeping.</li>
+  </ul>
+  <dl class="facts">
+    <dt>Price</dt><dd>$500, fixed, paid by card through Stripe before work starts.</dd>
+    <dt>Delivery date</dt><dd>We agree on the delivery date with you in writing before you pay.</dd>
+    <dt>If it's wrong</dt><dd>If the report doesn't match the written scope and you tell us within 30 days of delivery, we correct it. If we don't correct it within a reasonable time, we refund the part of the fee that relates to it.</dd>
+    <dt>Refunds</dt><dd>Before work starts, a full refund on request. If we stop before delivering, a full refund. If we're more than 10 business days past the agreed date for reasons that aren't yours, you can cancel for a full refund. If you cancel after work starts, we refund the share of the timeline that hasn't run. The <a href="../terms/">terms</a> have the detail.</dd>
+  </dl>
+  </div>
+</div></section>
+
+<section class="band ink" aria-labelledby="next-h"><div class="wrap pair">
+  <div class="stack stack-3">
+  <h2 id="next-h">Next step</h2>
+  <p class="measure">Send the repository link, your test runner and one sentence on what hurts most. We'll say what the report will cover before you pay anything.</p>
+  <p><a class="cta" href="mailto:hello@cedarwood.studio?subject=CI%20Diagnostic&amp;body=Hello%2C%0A%0AWe'd%20like%20a%20CI%20Diagnostic.%20Here's%20what%20you%20asked%20for%3A%0A%0ARepository%3A%0A%0ATest%20runner%3A%0A%0AWhat%20hurts%20most%3A%0A%0ARoughly%20how%20many%20runs%20a%20week%3A%0A%0AHow%20you%20found%20us%3A%0A">Email to start a CI Diagnostic</a></p>
+  <!-- PAYMENT LINK GOES HERE: set "payment_link" in src/offers/github-actions-ci-diagnostic.json to the Stripe payment link and rebuild. Until then the link is sent by email. -->
+  </div>
+  <div class="lockup-stacked" aria-hidden="true">
+    <span class="lockup-name"><span>Cedarwood</span><span>Studio<span class="stop"></span></span></span>
+    <span class="lockup-credit">by Jack Senechal</span>
+  </div>
+</div></section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-in">
+    <p class="footer-mark"><span class="lockup-name">Cedarwood Studio<span class="stop" aria-hidden="true"></span></span></p>
+    <p class="legal">Cedarwood Studio by Jack Senechal. Novato, California. <a href="mailto:hello@cedarwood.studio">hello@cedarwood.studio</a></p>
+    <ul class="footer-links">
+      <li><a href="../rails-upgrade-roadmap/">Rails Upgrade Roadmap</a></li>
+      <li><a href="../github-actions-ci-diagnostic/">CI Diagnostic</a></li>
+      <li><a href="../rails-7-1-to-8-upgrade-what-broke/">What a Rails 7.1 to 8.0 upgrade broke</a></li>
+      <li><a href="../can-an-ai-agent-do-a-rails-upgrade/">Can an AI agent do a Rails upgrade?</a></li>
+      <li><a href="../terms/">Terms, refunds and cancellation</a></li>
+      <li><a href="../privacy/">Privacy</a></li>
+      <li><a href="../about/">About</a></li>
+    </ul>
+    <p class="copyright">&copy; 2026 Cedarwood Studio</p>
+  </div>
+</footer>
+
+</body>
+</html>

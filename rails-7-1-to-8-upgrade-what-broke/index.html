@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What breaks when upgrading Rails 7.1 to 8, and how long does it take? One measured upgrade | Cedarwood Studio</title>
+<meta name="description" content="A measured Rails 7.1 to 8.0 upgrade of a 27,000-line open-source application: the lines that broke, how each was found, and the machine time each stage took. Every number is in a public repository.">
+<link rel="canonical" href="https://cedarwood.studio/rails-7-1-to-8-upgrade-what-broke/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cedarwood Studio">
+<meta property="og:title" content="What breaks when upgrading Rails 7.1 to 8, and how long does it take? One measured upgrade | Cedarwood Studio">
+<meta property="og:description" content="A measured Rails 7.1 to 8.0 upgrade of a 27,000-line open-source application: the lines that broke, how each was found, and the machine time each stage took. Every number is in a public repository.">
+<meta property="og:url" content="https://cedarwood.studio/rails-7-1-to-8-upgrade-what-broke/">
+<meta property="og:image" content="https://cedarwood.studio/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"What broke when a 27,000-line Rails app went from 7.1 to 8.0, and how long each stage took","description":"A measured Rails 7.1 to 8.0 upgrade of a 27,000-line open-source application: the lines that broke, how each was found, and the machine time each stage took. Every number is in a public repository.","url":"https://cedarwood.studio/rails-7-1-to-8-upgrade-what-broke/","datePublished":"2026-11-17","dateModified":"2026-11-17","author":{"@type":"Organization","name":"Cedarwood Studio","url":"https://cedarwood.studio/"},"publisher":{"@type":"Organization","name":"Cedarwood Studio","url":"https://cedarwood.studio/"},"isBasedOn":["https://github.com/cedarwood-studio/upgrade-roadmap-sample"]}</script>
+</head>
+<body data-asset="answer-rails-7-1-to-8-upgrade-what-broke">
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="lockup" href=".././" aria-label="Cedarwood Studio by Jack Senechal, home">
+      <span class="lockup-name">Cedarwood Studio<span class="stop" aria-hidden="true"></span></span>
+      <span class="lockup-rule" aria-hidden="true"></span>
+      <span class="lockup-credit">by Jack Senechal</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="../github-actions-ci-diagnostic/">CI Diagnostic</a></li>
+        <li><a href="../about/">About</a></li>
+        <li><a class="cta small" href="../rails-upgrade-roadmap/">Rails Upgrade Roadmap <span class="amt">$2,500</span></a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="page-head wrap">
+  <p class="eyebrow">Measured answer</p>
+  <h1 class="long">What broke when a 27,000-line Rails app went from 7.1 to 8.0, and how long each stage took</h1>
+  <p class="lead measure">We upgraded Postal, an open-source mail server, from Rails 7.1.6 to 8.0.5.2 on a fork, in four stages, each reviewed by an automated pass of our own process, and recorded what broke and how long each step ran. The breaks listed here cover the whole planned path to 8.1, and the two worst were in code the test suite never runs. The four stages took 81 minutes of machine time to build and 109 minutes to review. That's machine time with no person's time in it, and it isn't a calendar estimate.</p>
+  <p class="updated">Last updated <time datetime="2026-11-17">November 17, 2026</time></p>
+</section>
+
+<section class="band"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">A</span>
+    <h2>The app and the path</h2>
+  </div>
+  <div class="split-body prose">
+  <div class="table-wrap"><table class="versions">
+    <thead><tr><th scope="col">Measure</th><th scope="col">Value</th></tr></thead>
+    <tbody>
+      <tr><td>Application</td><td>Postal, an open-source mail server (MIT license), at commit <code>d96eddb</code></td></tr>
+      <tr><td>Size</td><td>27,249 lines: 23,818 lines of Ruby in 296 files, 8,988 of them tests, and the rest templates and tasks</td></tr>
+      <tr><td>Tests</td><td>851 RSpec examples. The suite takes 3 minutes 42 seconds</td></tr>
+      <tr><td>Gems</td><td>162 in the lock file, 50 of them direct</td></tr>
+      <tr><td>Start</td><td>Rails 7.1.6 on Ruby 3.4.6</td></tr>
+      <tr><td>Planned path</td><td>7.2, then 8.0, then 8.1, in ten stages</td></tr>
+      <tr><td>Carried out</td><td>Four stages, reaching Rails 8.0.5.2. Rails 8.1 and the framework defaults stages weren't run</td></tr>
+    </tbody>
+  </table></div>
+  <p>Source for every number on this page: <a href="https://github.com/cedarwood-studio/upgrade-roadmap-sample">cedarwood-studio/upgrade-roadmap-sample</a>, in <code>ROADMAP.md</code> and <code>EXECUTION.md</code>, dated November 13, 2026. The stages are <a href="https://github.com/cedarwood-studio/postal/pulls">pull requests on our fork</a>. Nobody at the Postal project asked for this, we aren't affiliated with the project, and nothing was sent to it.</p>
+  </div>
+</div></section>
+
+<section class="band" id="broke"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">B</span>
+    <h2>What broke</h2>
+  </div>
+  <div class="split-body prose">
+  <p>These are the places flagged as breaking on the path from 7.1 to 8.1. The sample counts them as eight lines. The last row turned out not to be a break at this target.</p>
+  <div class="table-wrap"><table class="versions">
+    <thead><tr><th scope="col">Step</th><th scope="col">What breaks</th><th scope="col">Where</th><th scope="col">How it was found</th></tr></thead>
+    <tbody>
+      <tr><td>7.2</td><td><code>migration_context</code> moved from the connection to the connection pool. With an optional start-up feature switched on, the app exits with <code>NoMethodError</code></td><td><code>lib/migration_waiter.rb:18</code></td><td>Missed by the first pass. The suite loads the line and never runs it, so every check passed. Found by a review, then confirmed by starting the app with the feature on</td></tr>
+      <tr><td>7.2</td><td>A <code>show_exceptions</code> setting in the test environment</td><td><code>config/environments/test.rb:28</code></td><td>A rule from the release notes</td></tr>
+      <tr><td>8.0</td><td><code>has_secure_password</code> now defines <code>password_reset_token</code>, which shadows the app's own column of that name</td><td><code>app/models/concerns/has_authentication.rb:8</code></td><td>Missed by the first pass. Found by a review in the Active Model changelog. Confirmed by running: of 6 new tests that walk a password reset, 4 fail on 8.0.5.2 without the fix</td></tr>
+      <tr><td>8.1</td><td>The <code>benchmark</code> gem leaves the lock file, and the app calls <code>Benchmark</code> without requiring it</td><td><code>app/lib/worker/process.rb:164</code> and <code>:256</code></td><td>Missed by the first pass. The suite never loads the file. Read, and not yet run</td></tr>
+      <tr><td>7.1 and 8.0</td><td>Version 3 of the <code>json</code> gem rejects an option Active Support passes</td><td><code>Gemfile.lock:167</code></td><td>Missed by the first pass. The lock holds 2.7.1 today, so nothing fails until the gem moves</td></tr>
+      <tr><td>7.1 defaults</td><td><code>serialize</code> without an explicit coder</td><td><code>app/models/credential.rb:34</code>, <code>app/models/webhook_request.rb:37</code></td><td>A rule from the configuration guide. Planned for a later stage, not yet run</td></tr>
+      <tr><td>8.1</td><td>Sorted columns in <code>schema.rb</code>. First read as a break. Rails 8.1.4 reverted the sorting, so at this target it isn't one</td><td><code>db/schema.rb:13</code></td><td>A rule from the upgrade guide, corrected by the second run</td></tr>
+    </tbody>
+  </table></div>
+  <p>One gem blocked the path. <code>annotate</code>, a development tool, caps Active Record below 8.0 at its latest version, and stage 2 removed it. The dependency resolver found a working set of gems for every step, on 8.0 and 8.1 by downgrading <code>annotate</code>.</p>
+  <p>The first automated pass found four of the eight. A review found the other four, and one of them had already shipped in a finished stage. <a href="../can-an-ai-agent-do-a-rails-upgrade/">That story has its own page</a>.</p>
+
+  <h3>Behavior that changed without breaking anything</h3>
+  <p>A framework upgrade also changes behavior on purpose. These differences were found on the two steps that ran, and each was declared with its source.</p>
+  <div class="table-wrap"><table class="versions">
+    <thead><tr><th scope="col">Step</th><th scope="col">Difference</th><th scope="col">How it was found</th></tr></thead>
+    <tbody>
+      <tr><td>7.2</td><td>The "Astana" time zone maps to a different zone. A user who stored it sees times one hour different</td><td>5 of 170 recorded responses changed</td></tr>
+      <tr><td>7.2</td><td>A HEAD request that ends in an error page gets <code>Content-Length: 0</code> where 7.1.6 sent the page's length</td><td>A review read the Action Pack changelog and measured it. No recorded request was a HEAD</td></tr>
+      <tr><td>7.2</td><td>The line Rails logs for each request ends differently</td><td>In no changelog. A review compared the two installed versions</td></tr>
+      <tr><td>8.0</td><td>134 of 170 recorded responses gain a <code>Vary</code> header</td><td>Predicted by the report's review, then seen in the first check</td></tr>
+      <tr><td>8.0</td><td>A <code>to_time</code> deprecation warning appears, printed 4 times at boot</td><td>Counted before and after the stage</td></tr>
+    </tbody>
+  </table></div>
+  </div>
+</div></section>
+
+<section class="band" id="time"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">C</span>
+    <h2>How long each stage took</h2>
+  </div>
+  <div class="split-body prose">
+  <p>All of it is machine time on the wall clock. No person's time is in any row. The sample lists seven steps an operator took by hand, and those weren't timed.</p>
+  <div class="table-wrap"><table class="versions">
+    <thead><tr><th scope="col">Step</th><th scope="col">Building</th><th scope="col">Review</th></tr></thead>
+    <tbody>
+      <tr><td>The report, from a repository URL</td><td>25.1 min</td><td>11.9 min</td></tr>
+      <tr><td>Baseline: the request set, the suite, two recordings</td><td>26.8 min</td><td></td></tr>
+      <tr><td>Stage 1: 65 tests that pin current behavior</td><td>12.7 min</td><td>24.2 min, one round</td></tr>
+      <tr><td>Stage 2: remove the blocking gem</td><td>5.9 min</td><td>3.9 min, one round</td></tr>
+      <tr><td>Stage 3: Rails 7.1.6 to 7.2.4</td><td>14.9 min, then 29.2 min for four fixes</td><td>62.2 min, five rounds</td></tr>
+      <tr><td>Stage 4: Rails 7.2.4 to 8.0.5.2</td><td>18.6 min</td><td>18.2 min, one round</td></tr>
+      <tr><td>Stages 1 to 4, added up</td><td>81.3 min</td><td>108.5 min</td></tr>
+      <tr><td>Stages 5 to 10: Rails 8.1 and the defaults</td><td>Not run</td><td>Not run</td></tr>
+      <tr><td>A person's review</td><td></td><td>Not done</td></tr>
+    </tbody>
+  </table></div>
+  <p>The report's 25.1 minutes is 8.1 in the sandbox, 15.1 working out the suite and writing, and 1.9 reading the prose. The sums are ours, added from the four stage rows. Stage 3's 14.9 minutes is from the first run and its fixes are from the second.</p>
+  <p>On stage 3, review took longer than building. As first built it took 14.9 minutes and passed every check, and it didn't start with one feature switched on. It took five review rounds and four fixes before a review passed it.</p>
+  </div>
+</div></section>
+
+<section class="band" id="limits"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">D</span>
+    <h2>What this doesn't tell you</h2>
+  </div>
+  <div class="split-body prose">
+  <ul>
+    <li><strong>How long your upgrade takes in calendar time.</strong> These are machine minutes for four of ten stages on one app. The report's own estimate for all ten stages is 30 to 263 hours of an engineer's attended time, and nothing has calibrated it. The two numbers don't measure the same thing.</li>
+    <li><strong>What a harder app looks like.</strong> Postal sits at the easy end, with one blocking gem of 162 and a fast suite. An app with a dozen blocked gems and thin tests would look very different.</li>
+    <li><strong>The riskiest stages.</strong> Rails 8.1 and the defaults stages, which touch cookies, sessions and how stored data is serialized, haven't run.</li>
+    <li><strong>That nothing else is broken.</strong> Each of the last three review rounds on stage 3 found a smaller difference than the one before. We can't say how many are left.</li>
+    <li><strong>What a senior Rails engineer would add.</strong> The reviews here are passes of our own process. No person has reviewed the sample yet.</li>
+    <li><strong>Anything in production.</strong> Everything ran in a sandbox, with no real configuration, data or traffic.</li>
+  </ul>
+  </div>
+</div></section>
+
+<section class="band bench"><div class="wrap">
+  <p class="eyebrow accent">To get the same tables for your own app</p>
+  <a class="next-row" href="../rails-upgrade-roadmap/"><span class="name">Rails Upgrade Roadmap</span><span class="price">$2,500</span></a>
+</div></section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-in">
+    <p class="footer-mark"><span class="lockup-name">Cedarwood Studio<span class="stop" aria-hidden="true"></span></span></p>
+    <p class="legal">Cedarwood Studio by Jack Senechal. Novato, California. <a href="mailto:hello@cedarwood.studio">hello@cedarwood.studio</a></p>
+    <ul class="footer-links">
+      <li><a href="../rails-upgrade-roadmap/">Rails Upgrade Roadmap</a></li>
+      <li><a href="../github-actions-ci-diagnostic/">CI Diagnostic</a></li>
+      <li><a href="../rails-7-1-to-8-upgrade-what-broke/">What a Rails 7.1 to 8.0 upgrade broke</a></li>
+      <li><a href="../can-an-ai-agent-do-a-rails-upgrade/">Can an AI agent do a Rails upgrade?</a></li>
+      <li><a href="../terms/">Terms, refunds and cancellation</a></li>
+      <li><a href="../privacy/">Privacy</a></li>
+      <li><a href="../about/">About</a></li>
+    </ul>
+    <p class="copyright">&copy; 2026 Cedarwood Studio</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -3,64 +3,124 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cedarwood Studio</title>
-<meta name="description" content="A software and infrastructure studio. Jack Senechal, principal. California.">
+<title>Cedarwood Studio: Rails upgrade test runs and GitHub Actions CI diagnostics, fixed price</title>
+<meta name="description" content="A one-person software studio in Novato, California. We test-run your Rails upgrade in a sandbox and show what broke ($2,500, Rails 7.0 to 8.1), and we measure why your GitHub Actions CI is slow or flaky ($500). Public samples for both.">
 <link rel="canonical" href="https://cedarwood.studio/">
-<meta name="robots" content="index, follow">
-
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cedarwood Studio">
-<meta property="og:title" content="Cedarwood Studio">
-<meta property="og:description" content="A software and infrastructure studio. Jack Senechal, principal. California.">
+<meta property="og:title" content="Cedarwood Studio: Rails upgrade test runs and GitHub Actions CI diagnostics, fixed price">
+<meta property="og:description" content="A one-person software studio in Novato, California. We test-run your Rails upgrade in a sandbox and show what broke ($2,500, Rails 7.0 to 8.1), and we measure why your GitHub Actions CI is slow or flaky ($500). Public samples for both.">
 <meta property="og:url" content="https://cedarwood.studio/">
 <meta property="og:image" content="https://cedarwood.studio/og.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Cedarwood Studio">
 <meta name="twitter:card" content="summary_large_image">
-
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="favicon.svg">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Spectral:wght@300;400;500&display=swap">
 <link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","@id":"https://cedarwood.studio/#studio","name":"Cedarwood Studio by Jack Senechal","alternateName":"Cedarwood Studio","url":"https://cedarwood.studio/","email":"hello@cedarwood.studio","founder":{"@type":"Person","name":"Jack Senechal","url":"https://cedarwood.studio/about/"},"address":{"@type":"PostalAddress","addressLocality":"Novato","addressRegion":"CA","addressCountry":"US"}}</script>
 </head>
-<body>
+<body data-asset="page-home">
 
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="masthead column">
-  <a class="wordmark" href="./" aria-label="Cedarwood Studio, home">
-    <svg width="26" height="26" viewBox="0 0 32 32" role="img" aria-hidden="true" focusable="false">
-      <!-- End grain of a milled cedar billet: the pith off-centre, growth rings
-           widening outward, squared off by the saw. Drawn here, not sourced. -->
-      <defs><clipPath id="cw-billet"><rect x="3.6" y="3.6" width="24.8" height="24.8"></rect></clipPath></defs>
-      <g clip-path="url(#cw-billet)">
-        <g class="ring" stroke-width="1.15">
-          <circle cx="11" cy="23" r="3.6"></circle>
-          <circle cx="11" cy="23" r="7.8"></circle>
-          <circle cx="11" cy="23" r="12.8"></circle>
-          <circle cx="11" cy="23" r="18.8"></circle>
-        </g>
-        <circle class="ring-pith" cx="11" cy="23" r="1.5"></circle>
-      </g>
-      <rect class="billet" x="3.6" y="3.6" width="24.8" height="24.8"></rect>
-    </svg>
-    <span><b>Cedarwood</b> Studio</span>
-  </a>
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="lockup" href="./" aria-label="Cedarwood Studio by Jack Senechal, home">
+      <span class="lockup-name">Cedarwood Studio<span class="stop" aria-hidden="true"></span></span>
+      <span class="lockup-rule" aria-hidden="true"></span>
+      <span class="lockup-credit">by Jack Senechal</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="github-actions-ci-diagnostic/">CI Diagnostic</a></li>
+        <li><a href="about/">About</a></li>
+        <li><a class="cta small" href="rails-upgrade-roadmap/">Rails Upgrade Roadmap <span class="amt">$2,500</span></a></li>
+      </ul>
+    </nav>
+  </div>
 </header>
 
-<main id="main" class="column">
-  <section class="hero stack stack-4">
-    <h1 class="lead">A software and infrastructure studio. Jack Senechal, principal. California.</h1>
-    <p><a href="mailto:hello@cedarwood.studio">hello@cedarwood.studio</a></p>
-  </section>
+<main id="main">
+<section class="hero"><div class="wrap pair">
+<div class="hero-copy">
+  <p class="eyebrow">Software and infrastructure studio · Novato, California</p>
+  <h1>Find out what your Rails upgrade breaks before you commit to it.</h1>
+  <p class="lead">We test-run the first version step in a sandbox, check what your tests never reach, and show you what broke, with the file and line and a staged plan. It's a fixed $2,500, credited toward an upgrade you start with us.</p>
+  <p class="actions"><a class="cta" href="rails-upgrade-roadmap/">Rails Upgrade Roadmap <span class="amt">$2,500</span></a> <a class="more" href="rails-7-1-to-8-upgrade-what-broke/">See one measured upgrade</a></p>
+  <p class="updated">Last updated <time datetime="2026-11-17">November 17, 2026</time></p>
+</div>
+<aside class="sheet" aria-label="How the studio works">
+  <div class="sheet-head">
+    <span class="sheet-title">How the studio works</span>
+    <span class="sheet-label">Cedarwood Studio</span>
+  </div>
+  <dl class="sheet-grid">
+    <div><dt>Accountable</dt><dd>Jack Senechal</dd></div>
+    <div><dt>Location</dt><dd>Novato, California</dd></div>
+    <div><dt>Price</dt><dd>Fixed, and on the page</dd></div>
+    <div><dt>To buy</dt><dd>An email. No call needed</dd></div>
+    <div class="wide"><dt>Checks</dt><dd>Each report comes with the data behind its numbers, so you can check it yourself</dd></div>
+  </dl>
+</aside>
+</div></section>
+
+<section class="band plain" aria-labelledby="services-h"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">01</span>
+    <span class="rail-label">Services and prices</span>
+  </div>
+  <div class="split-body stack stack-4">
+    <h2 id="services-h">Two fixed-price services</h2>
+    <div class="ledger">
+      <div class="ledger-head"><span class="name">Service</span><span class="what">When it fits</span><span class="price">Price</span></div>
+      <div class="ledger-row"><span class="name"><a href="rails-upgrade-roadmap/">Rails Upgrade Roadmap</a></span><span class="what">Your Rails 7 app is out of support or close to it, and nobody can say how big the upgrade is. Rails 7.0 to 8.1 only, for now.</span><span class="price">$2,500</span></div>
+      <div class="ledger-row"><span class="name"><a href="github-actions-ci-diagnostic/">CI Diagnostic</a></span><span class="what">Your GitHub Actions runs are slow, or they fail and pass on re-run. Failing tests are named for pytest and unittest.</span><span class="price">$500</span></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="band bench" aria-labelledby="measured-h"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">02</span>
+    <span class="rail-label">Measured answers</span>
+  </div>
+  <div class="split-body prose">
+    <h2 id="measured-h">What we've measured in public</h2>
+    <p>We ran a Rails 7.1 to 8 upgrade on a 27,000-line open-source app and published the report, its data and the record of each stage. Two pages come from it.</p>
+    <ul>
+      <li><a href="rails-7-1-to-8-upgrade-what-broke/">What breaks when upgrading Rails 7.1 to 8, and how long does each stage take?</a> Each breaking line, how it was found, and the machine time for every stage.</li>
+      <li><a href="can-an-ai-agent-do-a-rails-upgrade/">Can an AI agent do a Rails upgrade?</a> Our first automated pass found four of eight lines flagged as breaking and shipped a defect. What changed after that.</li>
+    </ul>
+    <p>The samples are at <a href="https://github.com/cedarwood-studio/upgrade-roadmap-sample">cedarwood-studio/upgrade-roadmap-sample</a> and <a href="https://github.com/cedarwood-studio/ci-diagnostic-sample">cedarwood-studio/ci-diagnostic-sample</a>.</p>
+  </div>
+</div></section>
+
+<section class="band ink" aria-labelledby="who-h"><div class="wrap pair">
+  <div class="stack stack-3">
+    <h2 id="who-h">Who you're dealing with</h2>
+    <p class="measure">Cedarwood Studio is the business name of Jack Senechal, a sole proprietor, and he's accountable for what we deliver. The <a href="about/">about page</a> says how the work is done and how your code is handled.</p>
+  </div>
+  <div class="lockup-stacked" aria-hidden="true">
+    <span class="lockup-name"><span>Cedarwood</span><span>Studio<span class="stop"></span></span></span>
+    <span class="lockup-credit">by Jack Senechal</span>
+  </div>
+</div></section>
+
 </main>
 
-<footer class="site-footer column">
-  <p class="copyright">&copy; 2026 Cedarwood Studio</p>
+<footer class="site-footer">
+  <div class="wrap footer-in">
+    <p class="footer-mark"><span class="lockup-name">Cedarwood Studio<span class="stop" aria-hidden="true"></span></span></p>
+    <p class="legal">Cedarwood Studio by Jack Senechal. Novato, California. <a href="mailto:hello@cedarwood.studio">hello@cedarwood.studio</a></p>
+    <ul class="footer-links">
+      <li><a href="rails-upgrade-roadmap/">Rails Upgrade Roadmap</a></li>
+      <li><a href="github-actions-ci-diagnostic/">CI Diagnostic</a></li>
+      <li><a href="rails-7-1-to-8-upgrade-what-broke/">What a Rails 7.1 to 8.0 upgrade broke</a></li>
+      <li><a href="can-an-ai-agent-do-a-rails-upgrade/">Can an AI agent do a Rails upgrade?</a></li>
+      <li><a href="terms/">Terms, refunds and cancellation</a></li>
+      <li><a href="privacy/">Privacy</a></li>
+      <li><a href="about/">About</a></li>
+    </ul>
+    <p class="copyright">&copy; 2026 Cedarwood Studio</p>
+  </div>
 </footer>
 
 </body>

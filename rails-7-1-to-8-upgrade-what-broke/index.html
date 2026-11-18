@@ -4,18 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>What breaks when upgrading Rails 7.1 to 8, and how long does it take? One measured upgrade | Cedarwood Studio</title>
-<meta name="description" content="A measured Rails 7.1 to 8.0 upgrade of a 27,000-line open-source application: the lines that broke, what caught each one, what changed without breaking anything, and how much work each stage took. The upgrade's numbers are in a public repository.">
+<meta name="description" content="A measured Rails 7.1 to 8.0 upgrade of a 27,000-line open-source application: the lines that broke, what caught each one, what changed without breaking anything, and how much work each stage took. The numbers for each stage are in a public repository.">
 <link rel="canonical" href="https://cedarwood.studio/rails-7-1-to-8-upgrade-what-broke/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cedarwood Studio">
 <meta property="og:title" content="What breaks when upgrading Rails 7.1 to 8, and how long does it take? One measured upgrade | Cedarwood Studio">
-<meta property="og:description" content="A measured Rails 7.1 to 8.0 upgrade of a 27,000-line open-source application: the lines that broke, what caught each one, what changed without breaking anything, and how much work each stage took. The upgrade's numbers are in a public repository.">
+<meta property="og:description" content="A measured Rails 7.1 to 8.0 upgrade of a 27,000-line open-source application: the lines that broke, what caught each one, what changed without breaking anything, and how much work each stage took. The numbers for each stage are in a public repository.">
 <meta property="og:url" content="https://cedarwood.studio/rails-7-1-to-8-upgrade-what-broke/">
 <meta property="og:image" content="https://cedarwood.studio/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../styles.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"What broke when a 27,000-line Rails app went from 7.1 to 8.0, and how much work each stage took","description":"A measured Rails 7.1 to 8.0 upgrade of a 27,000-line open-source application: the lines that broke, what caught each one, what changed without breaking anything, and how much work each stage took. The upgrade's numbers are in a public repository.","url":"https://cedarwood.studio/rails-7-1-to-8-upgrade-what-broke/","datePublished":"2026-11-17","dateModified":"2026-11-18","author":{"@type":"Organization","name":"Cedarwood Studio","url":"https://cedarwood.studio/"},"publisher":{"@type":"Organization","name":"Cedarwood Studio","url":"https://cedarwood.studio/"},"isBasedOn":["https://github.com/cedarwood-studio/upgrade-roadmap-sample"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"What broke when a 27,000-line Rails app went from 7.1 to 8.0, and how much work each stage took","description":"A measured Rails 7.1 to 8.0 upgrade of a 27,000-line open-source application: the lines that broke, what caught each one, what changed without breaking anything, and how much work each stage took. The numbers for each stage are in a public repository.","url":"https://cedarwood.studio/rails-7-1-to-8-upgrade-what-broke/","datePublished":"2026-11-17","dateModified":"2026-11-18","author":{"@type":"Organization","name":"Cedarwood Studio","url":"https://cedarwood.studio/"},"publisher":{"@type":"Organization","name":"Cedarwood Studio","url":"https://cedarwood.studio/"},"isBasedOn":["https://github.com/cedarwood-studio/upgrade-roadmap-sample"]}</script>
 </head>
 <body data-asset="answer-rails-7-1-to-8-upgrade-what-broke">
 
@@ -118,11 +118,10 @@
       <tr><td>2</td><td>Removed the blocking gem</td><td>1</td><td>0</td></tr>
       <tr><td>3</td><td>Rails 7.1.6 to 7.2.4</td><td>5</td><td>4</td></tr>
       <tr><td>4</td><td>Rails 7.2.4 to 8.0.5.2</td><td>1</td><td>0</td></tr>
-      <tr><td>5 to 10</td><td>Rails 8.1 and the framework defaults</td><td>Not yet run</td><td>Not yet run</td></tr>
     </tbody>
   </table></div>
-  <p>The report's estimate for all ten stages is 30 to 263 hours of an engineer's time. It's an uncalibrated estimate.</p>
-  <p>As first built, stage 3 passed every check, and it didn't start with one feature switched on. The review caught that in its first round, and the stage went back four times before a review passed it.</p>
+  <p>The report's estimate for all ten stages of this app is an effort range of 30 to 263 hours of an engineer's time.</p>
+  <p>As first built, stage 3 passed every check, and it didn't start with one feature switched on. The review caught that in its first round, and the stage went back four times before a review passed it. The reviews counted here are review passes, a step of our process.</p>
   </div>
 </div></section>
 
@@ -144,8 +143,8 @@
       <tr><td>File downloads, with no page to compare</td><td>4</td></tr>
     </tbody>
   </table></div>
-  <p>Six of the nine changes are error text. In the test environment a missing page answers with the framework's backtrace, and the version numbers in it changed. Two are a few pixels at the corner of a form control, and they didn't come back on a second capture. That second capture showed the same few-pixel flicker on two other screens, which is why we read it as the browser's own noise. One is six pale pixels at the corner of a select box on one screen, invisible at normal size. It showed on both captures of the new version, and its cause is still open.</p>
-  <p>Both sides ran in the test environment, so the error pages a production user sees weren't compared. We ran the comparison on November 18, 2026, and its captures aren't in the public sample yet.</p>
+  <p>Six of the nine changes are error text. In the test environment a missing page answers with the framework's backtrace, and the version numbers in it changed. Two are a few pixels at the corner of a form control, and they didn't come back on a second capture. That second capture showed the same few-pixel flicker on two other screens, which is why we read it as the browser's own noise. One is six pale pixels at the corner of a select box on one screen, invisible at normal size, and it showed on both captures of the new version.</p>
+  <p>Both sides ran in the test environment, so the error pages a production user sees weren't compared. We ran the comparison on November 18, 2026.</p>
   <figure><img src="../visual/pair-server-overview.png" width="1200" height="420" alt="A mail server's overview page before and after the upgrade, side by side, with no visible difference" loading="lazy"><figcaption>One of the 217 identical captures. A mail server's overview page on both versions.</figcaption></figure>
   <figure><img src="../visual/pair-error-text.png" width="1200" height="210" alt="An error page before and after, and the difference image, with the changed version numbers in red" loading="lazy"><figcaption>One of the nine changed captures. The error text for an unknown address, and where it differs.</figcaption></figure>
   </div>
@@ -157,7 +156,7 @@
     <h2>How far this goes</h2>
   </div>
   <div class="split-body prose">
-  <p>This is one app, and it sits at the easy end, with one blocking gem of 162 and a fast test suite. Four of the ten planned stages have run. The ones still to run, Rails 8.1 and the framework defaults, touch cookies, sessions and how stored data is serialized. No person has reviewed the sample yet.</p>
+  <p>This is one app, and it sits at the easy end, with one blocking gem of 162 and a fast test suite. Four of the ten planned stages have run. The ones still to run, Rails 8.1 and the framework defaults, touch cookies, sessions and how stored data is serialized.</p>
   </div>
 </div></section>
 

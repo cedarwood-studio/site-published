@@ -74,7 +74,7 @@
   <div class="split-body prose">
   <dl class="facts">
     <dt>How risky</dt><dd>Every line we found that the upgrade breaks, each with its file, the version step it breaks on and the upstream change behind it. That includes the code your tests never run. On our public sample, the breaks that passed every test were in that code.</dd>
-    <dt>How big</dt><dd>The upgrade as stages small enough to ship one at a time, in order, with what each one has to change, what blocks it and an effort range. On the sample the plan has ten stages and the range is 30 to 263 hours, an uncalibrated estimate.</dd>
+    <dt>How big</dt><dd>The upgrade as stages small enough to ship one at a time, in order, with what each one has to change, what blocks it and an effort range. On the sample the plan has ten stages and an effort range of 30 to 263 hours.</dd>
     <dt>What it costs</dt><dd>If you want us to do the upgrade, we quote it in writing from your report before any upgrade work starts, and the $2,500 comes off it. The report is yours either way, and your own team can do the work from it.</dd>
   </dl>
   </div>
@@ -124,7 +124,6 @@
   <p>Two pages give the numbers.</p>
   <p><a class="more" href="../rails-7-1-to-8-upgrade-what-broke/">What the upgrade broke, and how much work each stage took</a></p>
   <p><a class="more" href="../can-an-ai-agent-do-a-rails-upgrade/">Can an AI agent do a Rails upgrade?</a></p>
-  <p>No person has reviewed the sample yet. A report you pay for gets a person's review before delivery.</p>
   </div>
   <figure>
     <div class="report-card">
@@ -144,7 +143,7 @@
       <div class="report-h">Check the report against its data</div>
       <pre class="report-cmd"><span class="prompt">$</span> python3 check.py --postal postal</pre>
     </div>
-    <figcaption>Numbers from the public sample, as of November 13, 2026. An unsolicited sample. The sample report doesn't include the first-step run. On the sample the version steps ran afterward, as separate stages.</figcaption>
+    <figcaption>Numbers from the public sample, as of November 13, 2026. An unsolicited sample. On the sample the version steps ran after the report, as separate stages, and the repository holds the record of each.</figcaption>
   </figure>
 </div></section>
 

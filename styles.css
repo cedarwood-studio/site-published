@@ -729,15 +729,11 @@ pre.mail {
   padding-block: 2rem 2.5rem;
   font-size: 0.875rem; line-height: 1.6;
 }
-.footer-mark { color: var(--paper); }
-.footer-mark .lockup-name { font-size: 1.3125rem; }
-.footer-mark .stop { background: var(--stop-on-ink); }
 .site-footer .legal { flex: 1 1 22rem; }
 .site-footer a { color: var(--paper); }
 .site-footer a:hover { color: var(--heartwood-on-ink); }
 .site-footer .footer-links { list-style: none; display: flex; flex-wrap: wrap; gap: 0 1.25rem; flex: 1 1 100%; }
 .site-footer .footer-links a { display: inline-block; padding: 0.625rem 0; }
-.site-footer .copyright { flex: 1 1 100%; font-family: var(--font-mono); font-size: 0.75rem; }
 
 /* --- motion: effectively none --------------------------------------------- */
 

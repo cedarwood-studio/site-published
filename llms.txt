@@ -1,6 +1,6 @@
 # Cedarwood Studio
 
-> Three fixed-price services: a Rails Upgrade Roadmap and a Node.js Upgrade Roadmap, which show what a Rails or Node.js upgrade breaks before you commit to it ($2,500 each), and a CI Diagnostic, which shows why a GitHub Actions pipeline is slow or flaky and what to change first ($500). The measured pages below draw on public sample repositories that can be checked line by line. The upgrade reports are produced by a software factory with hundreds of upgrade rules drawn from official release notes and documentation, and a sandbox that runs the application's own test suite. Every report is reviewed by a person before it's delivered.
+> Fixed-price services: a Rails Upgrade Roadmap and a Node.js Upgrade Roadmap, which show what a Rails or Node.js upgrade breaks before you commit to it ($2,500 each), and a CI Diagnostic, which shows why a GitHub Actions pipeline is slow or flaky and what to change first ($500). The measured pages below draw on public sample repositories that can be checked line by line. The upgrade reports are produced by a software factory with hundreds of upgrade rules drawn from official release notes and documentation, and a sandbox that runs the application's own test suite. Every report is reviewed by a person before it's delivered.
 
 Cedarwood Studio is the business name of Jack Senechal, a sole proprietor. Contact: hello@cedarwood.studio. Prices are in US dollars and are fixed. Each page below carries the date it was last updated.
 

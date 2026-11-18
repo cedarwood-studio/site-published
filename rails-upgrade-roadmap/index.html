@@ -111,7 +111,7 @@
   <div class="split-body prose">
   <p>Bumping the version and fixing what the tests complain about is the easy part. What it leaves behind can reach production. This is what happened in the public example below, a 27,000-line app with 851 tests.</p>
   <ul>
-    <li>A first pass found four of the eight lines flagged as breaking, and one of its four later proved not to be a break at the target. The other four only turned up in a separate review pass.</li>
+    <li>A first pass found four of the nine lines flagged as breaking, and one of its four later proved not to be a break at the target. The rest only turned up in a separate review pass.</li>
     <li>One stage passed the full test suite and a comparison of 170 recorded responses, and the app still didn't start with one feature switched on. The tests load that line and never run it.</li>
     <li>The step to Rails 7.2 changed behavior without failing a test. One time zone moved by an hour, and some error responses changed their headers.</li>
   </ul>

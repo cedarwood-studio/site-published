@@ -304,7 +304,7 @@ code, pre { font-family: var(--font-mono); }
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem 2.5rem;
+  gap: 0.5rem 1.5rem;
   padding-block: 1.125rem;
 }
 
@@ -344,11 +344,17 @@ a.lockup:hover { color: var(--fg); }
 .lockup-stacked .lockup-credit { font-size: 1.0625rem; color: var(--ash); }
 .lockup-stacked .stop { background: var(--stop-on-ink); }
 
-.site-nav ul { list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 0 1.75rem; }
+.site-nav ul { list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 0 1.25rem; }
 .site-nav a { display: inline-block; padding: 0.75rem 0; color: var(--fg); text-decoration: none; font-size: var(--t-s); }
 .site-nav a:hover { color: var(--accent); }
 .site-nav a[aria-current="page"] { color: var(--accent); }
 .site-nav a.cta { padding: 0 1.125rem; display: inline-flex; color: var(--btn-fg); }
+@media (max-width: 1180px) {
+  .masthead-in { gap: 0.5rem 1rem; }
+  .site-nav ul { gap: 0 0.75rem; }
+  .site-nav a { font-size: 0.9rem; }
+  .site-nav a.cta { padding: 0 0.75rem; }
+}
 
 /* --- buttons and links ---------------------------------------------------- */
 

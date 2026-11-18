@@ -96,7 +96,7 @@
     <h2>The break every test missed</h2>
   </div>
   <div class="split-body prose">
-  <p>A first pass through the upgrade found four of the eight lines flagged as breaking on the way to 8.1. One of its four, a change to column order in <code>schema.rb</code>, was later read as not a break at this target, because Rails 8.1.4 reverted it. In that first run, three stages went onto the fork, and each passed the test suite, the 170 recorded responses and the same checks again on GitHub Actions.</p>
+  <p>A first pass through the upgrade found four of the nine lines flagged as breaking on the way to 8.1. One of its four, a change to column order in <code>schema.rb</code>, was later read as not a break at this target, because Rails 8.1.4 reverted it. In that first run, three stages went onto the fork, and each passed the test suite, the 170 recorded responses and the same checks again on GitHub Actions.</p>
   <p>Then a separate review pass on that first run, which also compared it with the Postal project's own upgrade branches, found the other four. Where an app has an upgrade branch or an abandoned attempt of its own, the report reads it. One of the four was already in the 7.2 stage. Rails 7.2 moved <code>migration_context</code> from the database connection to the connection pool, and Postal calls it in the code that waits for migrations at start-up. With that feature switched on, the app exits with a <code>NoMethodError</code> before it serves anything. The test suite loads that file and never runs the line, so every check was green.</p>
   <p>The other three wouldn't have shown up in the stages that ran.</p>
   <ul>

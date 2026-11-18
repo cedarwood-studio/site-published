@@ -366,6 +366,7 @@ a.lockup:hover { color: var(--fg); }
   font: inherit;
   font-weight: 500;
   line-height: 1.25;
+  text-align: center;
   text-decoration: none;
   cursor: pointer;
 }
@@ -414,6 +415,12 @@ a.lockup:hover { color: var(--fg); }
 .hero .pair { align-items: end; }
 .hero-copy { display: flex; flex-direction: column; gap: 1.5rem; }
 .hero-copy .actions { padding-top: 0.5rem; }
+/* On an offer page the price box holds the button. Below the width where the box sits beside the
+   headline it falls under the lead, off the first screen, so the same button shows under the headline. */
+.hero-copy .hero-act { display: none; padding-top: 0; }
+@media (max-width: 61.5rem) {
+  .hero-copy .hero-act { display: flex; }
+}
 
 .page-head { display: flex; flex-direction: column; gap: 1.5rem; }
 .page-head h1 { font-size: var(--t-xxl); line-height: 1; letter-spacing: -0.025em; max-width: 14em; }
@@ -460,7 +467,7 @@ a.lockup:hover { color: var(--fg); }
 @media (min-width: 30rem) {
   .sheet-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .sheet-grid > div:nth-child(odd) { border-right: 1px solid var(--line); }
-  .sheet-grid > div:nth-last-child(2):nth-child(odd) { border-bottom: 0; }
+  .sheet-grid > div:nth-last-child(2):nth-child(odd):not(.wide) { border-bottom: 0; }
   .sheet-grid > div.wide { grid-column: 1 / -1; border-right: 0; }
 }
 .sheet-foot {
@@ -520,7 +527,7 @@ a.lockup:hover { color: var(--fg); }
 
 .steps {
   list-style: none; padding: 0;
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr)); gap: 2rem 1.75rem;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr)); gap: 2rem 1.75rem;
   counter-reset: step;
 }
 .steps > li {
@@ -545,6 +552,7 @@ a.lockup:hover { color: var(--fg); }
   border-bottom: 1.5px solid var(--line-strong);
   text-decoration: none;
 }
+.eyebrow + .next-row { margin-top: 0.875rem; }
 .next-row .name { display: flex; align-items: baseline; gap: 1.25rem; font-family: var(--font-display); font-size: clamp(1.875rem, 3.2vw, 2.625rem); line-height: 1.1; }
 .next-row .no { font-family: var(--font-mono); font-size: 0.875rem; color: var(--fg-2); }
 .next-row .price { display: flex; align-items: center; gap: 1rem; font-family: var(--font-mono); font-size: 1.5rem; font-weight: 500; }
@@ -585,7 +593,13 @@ a.lockup:hover { color: var(--fg); }
 }
 .report-cmd .prompt { color: var(--ash); }
 .prose figure img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); }
-.prose figure figcaption { margin-top: 0.5rem; }
+.prose figure figcaption { margin-top: 0.5rem; max-width: var(--measure); }
+/* A screenshot: as wide as the column allows, never drawn narrower than 40rem. On a phone it scrolls
+   sideways inside its own box, and the image links to the full-size file. */
+.prose > figure { max-width: none; }
+.shot { overflow-x: auto; max-width: 100%; border: 1px solid var(--line); }
+.shot a { display: block; min-width: 40rem; }
+.prose figure .shot img { width: 100%; max-width: none; border: 0; }
 figcaption { margin-top: 1.25rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--fg-2); }
 
 /* --- prose ---------------------------------------------------------------- */
@@ -608,6 +622,7 @@ figcaption { margin-top: 1.25rem; font-family: var(--font-mono); font-size: 0.75
 .prose ol > li::marker { font-family: var(--font-mono); font-size: 0.8125em; color: var(--accent); }
 .prose ol.steps { padding-left: 0; }
 .prose ol.steps + * { margin-top: var(--s4); }
+.prose ul + dl.facts { margin-top: var(--s4); }
 .ledger.flush { border-top: 0; }
 .prose ol.steps > li { margin-top: 0; padding-left: 0; }
 .prose code { font-size: 0.875em; overflow-wrap: anywhere; }
@@ -630,16 +645,31 @@ dl.facts dd { padding: 0.25rem 0 0.875rem; }
 }
 
 /* Tables scroll inside their own box, so the page never scrolls sideways. */
-.table-wrap { overflow-x: auto; max-width: 100%; border: 1px solid var(--line); background: var(--bg-sheet); }
+.table-wrap {
+  overflow-x: auto; max-width: 100%; border: 1px solid var(--line);
+  /* While there is more table to the right, a flat strip in the rule color marks the edge. The first
+     layer travels with the table and covers the strip at the end of the scroll, or when nothing scrolls. */
+  background:
+    linear-gradient(var(--bg-sheet), var(--bg-sheet)) right / 0.5rem 100% no-repeat local,
+    linear-gradient(var(--flat-shadow), var(--flat-shadow)) right / 0.5rem 100% no-repeat scroll,
+    var(--bg-sheet);
+}
 table.versions { border-collapse: collapse; width: 100%; font-size: var(--t-s); }
 table.versions th, table.versions td { text-align: left; vertical-align: top; padding: 0.75rem 1rem; border-bottom: 1px solid var(--line); }
 table.versions tbody tr:last-child td { border-bottom: 0; }
 table.versions th {
   border-bottom: 1px solid var(--line-strong);
   font-family: var(--font-mono); font-size: var(--t-label); font-weight: 400;
-  letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-2); white-space: nowrap;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-2);
 }
 table.versions td:first-child { font-family: var(--font-mono); font-size: 0.875rem; white-space: nowrap; }
+/* A table of three or more columns keeps a readable width and scrolls in its box on a phone,
+   where it would otherwise set one word to a line. */
+table.versions.wide { min-width: 44rem; }
+/* Where the first column is a sentence-length label, it wraps. */
+table.versions.labels td:first-child { white-space: normal; min-width: 9rem; }
+/* Code in a cell breaks only where the source allows (a <wbr> after each slash of a path). */
+table.versions code { overflow-wrap: normal; }
 
 /* Launch additions: the dated line under a page head, the coverage line beside a price, lists inside steps. */
 .updated { font-family: var(--font-mono); font-size: var(--t-xs); color: var(--fg-2); }
@@ -705,7 +735,7 @@ pre.mail {
 .site-footer .legal { flex: 1 1 22rem; }
 .site-footer a { color: var(--paper); }
 .site-footer a:hover { color: var(--heartwood-on-ink); }
-.site-footer .footer-links { list-style: none; display: flex; flex-wrap: wrap; gap: 0 1.5rem; flex: 1 1 100%; }
+.site-footer .footer-links { list-style: none; display: flex; flex-wrap: wrap; gap: 0 1.25rem; flex: 1 1 100%; }
 .site-footer .footer-links a { display: inline-block; padding: 0.625rem 0; }
 .site-footer .copyright { flex: 1 1 100%; font-family: var(--font-mono); font-size: 0.75rem; }
 

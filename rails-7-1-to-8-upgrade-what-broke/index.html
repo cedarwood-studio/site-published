@@ -75,16 +75,16 @@
   </div>
   <div class="split-body prose">
   <p>These are the places flagged as breaking on the path from 7.1 to 8.1. The last row turned out not to be a break at this target.</p>
-  <div class="table-wrap"><table class="versions">
+  <div class="table-wrap"><table class="versions wide">
     <thead><tr><th scope="col">Step</th><th scope="col">What breaks</th><th scope="col">Where</th><th scope="col">What caught it</th></tr></thead>
     <tbody>
-      <tr><td>7.2</td><td><code>migration_context</code> moved from the connection to the connection pool. With an optional start-up feature switched on, the app exits with <code>NoMethodError</code></td><td><code>lib/migration_waiter.rb:18</code></td><td>A separate review. The tests load this line and never run it, so every check passed</td></tr>
-      <tr><td>7.2</td><td>A <code>show_exceptions</code> setting in the test environment</td><td><code>config/environments/test.rb:28</code></td><td>The search against documented changes</td></tr>
-      <tr><td>8.0</td><td><code>has_secure_password</code> now defines <code>password_reset_token</code>, which shadows the app's own column of that name</td><td><code>app/models/concerns/has_authentication.rb:8</code></td><td>A separate review. Of 6 new tests that walk a password reset, 4 fail without the fix</td></tr>
-      <tr><td>8.1</td><td>The <code>benchmark</code> gem leaves the lock file, and the app calls <code>Benchmark</code> without requiring it</td><td><code>app/lib/worker/process.rb:164</code> and <code>:256</code></td><td>A separate review. No test loads the file</td></tr>
+      <tr><td>7.2</td><td><code>migration_context</code> moved from the connection to the connection pool. With an optional start-up feature switched on, the app exits with <code>NoMethodError</code></td><td><code>lib/<wbr>migration_waiter.rb:18</code></td><td>A separate review. The tests load this line and never run it, so every check passed</td></tr>
+      <tr><td>7.2</td><td>A <code>show_exceptions</code> setting in the test environment</td><td><code>config/<wbr>environments/<wbr>test.rb:28</code></td><td>The search against documented changes</td></tr>
+      <tr><td>8.0</td><td><code>has_secure_password</code> now defines <code>password_reset_token</code>, which shadows the app's own column of that name</td><td><code>app/<wbr>models/<wbr>concerns/<wbr>has_authentication.rb:8</code></td><td>A separate review. Of 6 new tests that walk a password reset, 4 fail without the fix</td></tr>
+      <tr><td>8.1</td><td>The <code>benchmark</code> gem leaves the lock file, and the app calls <code>Benchmark</code> without requiring it</td><td><code>app/<wbr>lib/<wbr>worker/<wbr>process.rb:164</code> and <code>:256</code></td><td>A separate review. No test loads the file</td></tr>
       <tr><td>7.1 and 8.0</td><td>Version 3 of the <code>json</code> gem rejects an option Active Support passes</td><td><code>Gemfile.lock:167</code></td><td>A separate review. Nothing fails until the gem moves</td></tr>
-      <tr><td>7.1 defaults</td><td><code>serialize</code> without an explicit coder</td><td><code>app/models/credential.rb:34</code>, <code>app/models/webhook_request.rb:37</code></td><td>The search against documented changes</td></tr>
-      <tr><td>8.1</td><td>Sorted columns in <code>schema.rb</code>. First read as a break. Rails 8.1.4 reverted the sorting, so at this target it isn't one</td><td><code>db/schema.rb:13</code></td><td>The search, corrected on a second run</td></tr>
+      <tr><td>7.1 defaults</td><td><code>serialize</code> without an explicit coder</td><td><code>app/<wbr>models/<wbr>credential.rb:34</code>, <code>app/<wbr>models/<wbr>webhook_request.rb:37</code></td><td>The search against documented changes</td></tr>
+      <tr><td>8.1</td><td>Sorted columns in <code>schema.rb</code>. First read as a break. Rails 8.1.4 reverted the sorting, so at this target it isn't one</td><td><code>db/<wbr>schema.rb:13</code></td><td>The search, corrected on a second run</td></tr>
     </tbody>
   </table></div>
   <p>One gem blocked the path. <code>annotate</code>, a development tool, caps Active Record below 8.0 at its latest version, and stage 2 removed it.</p>
@@ -92,7 +92,7 @@
 
   <h3>Behavior that changed without breaking anything</h3>
   <p>A framework upgrade also changes behavior on purpose. These are among the differences found on the two steps that ran.</p>
-  <div class="table-wrap"><table class="versions">
+  <div class="table-wrap"><table class="versions wide">
     <thead><tr><th scope="col">Step</th><th scope="col">Difference</th><th scope="col">Where it showed</th></tr></thead>
     <tbody>
       <tr><td>7.2</td><td>The "Astana" time zone maps to a different zone. A user who stored it sees times one hour different</td><td>5 of 170 recorded responses changed</td></tr>
@@ -111,7 +111,7 @@
     <h2>How much work each stage took</h2>
   </div>
   <div class="split-body prose">
-  <div class="table-wrap"><table class="versions">
+  <div class="table-wrap"><table class="versions wide">
     <thead><tr><th scope="col">Stage</th><th scope="col">What it did</th><th scope="col">Review rounds before it passed</th><th scope="col">Fixes a review sent back</th></tr></thead>
     <tbody>
       <tr><td>1</td><td>Added 65 tests that pin current behavior</td><td>1</td><td>0</td></tr>
@@ -132,7 +132,7 @@
   </div>
   <div class="split-body prose">
   <p>Tests and recorded responses don't show what a person sees, so we also loaded the running app in a browser on Rails 7.1.6 and on the fourth stage, Rails 8.0.5.2, and went through it feature by feature with the same data, at a desktop and a phone width. No screen broke in the 116 states that render a page. The other two of the 118 are file downloads.</p>
-  <div class="table-wrap"><table class="versions">
+  <div class="table-wrap"><table class="versions labels">
     <thead><tr><th scope="col">Measure</th><th scope="col">Value</th></tr></thead>
     <tbody>
       <tr><td>Features, screens and screen states compared</td><td>12, 31 and 118</td></tr>
@@ -145,8 +145,8 @@
   </table></div>
   <p>Six of the nine changes are error text. In the test environment a missing page answers with the framework's backtrace, and the version numbers in it changed. Two are a few pixels at the corner of a form control, and they didn't come back on a second capture. That second capture showed the same few-pixel flicker on two other screens, which is why we read it as the browser's own noise. One is six pale pixels at the corner of a select box on one screen, invisible at normal size, and it showed on both captures of the new version.</p>
   <p>Both sides ran in the test environment, so the error pages a production user sees weren't compared. We ran the comparison on November 18, 2026.</p>
-  <figure><img src="../visual/pair-server-overview.png" width="1200" height="420" alt="A mail server's overview page before and after the upgrade, side by side, with no visible difference" loading="lazy"><figcaption>One of the 217 identical captures. A mail server's overview page on both versions.</figcaption></figure>
-  <figure><img src="../visual/pair-error-text.png" width="1200" height="210" alt="An error page before and after, and the difference image, with the changed version numbers in red" loading="lazy"><figcaption>One of the nine changed captures. The error text for an unknown address, and where it differs.</figcaption></figure>
+  <figure><div class="shot"><a href="../visual/pair-server-overview.png"><img src="../visual/pair-server-overview.png" width="1200" height="420" alt="A mail server's overview page before and after the upgrade, side by side, with no visible difference" loading="lazy"></a></div><figcaption>One of the 217 identical captures. A mail server's overview page on both versions.</figcaption></figure>
+  <figure><div class="shot"><a href="../visual/pair-error-text.png"><img src="../visual/pair-error-text.png" width="1200" height="210" alt="An error page before and after, and the difference image, with the changed version numbers in red" loading="lazy"></a></div><figcaption>One of the nine changed captures. The error text for an unknown address, and where it differs.</figcaption></figure>
   </div>
 </div></section>
 

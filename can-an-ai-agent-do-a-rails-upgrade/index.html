@@ -55,7 +55,7 @@
   <p>The app is Postal, an open-source mail server on Rails 7.1.6, with 851 test examples. Nobody at the Postal project asked for this, and we aren't affiliated with the project. The target was Rails 8.1. The first pass was automated, with no separate review.</p>
   <p>It found four lines that documented Rails changes would break. Three stages then went onto a fork, and each passed every check we had: the test suite, a comparison of 170 recorded HTTP responses, and the same checks again on GitHub Actions.</p>
   <p>Then the work got a separate review pass. It found four more breaking lines, and one of them was already a defect in the third stage. With an optional start-up feature switched on, the app didn't start on Rails 7.2. The test suite loads that line and never executes it, so no check we had could see it.</p>
-  <div class="table-wrap"><table class="versions">
+  <div class="table-wrap"><table class="versions wide labels">
     <thead><tr><th scope="col">Measure</th><th scope="col">First pass alone</th><th scope="col">First pass plus the review</th></tr></thead>
     <tbody>
       <tr><td>Breaking lines found, of the 8 flagged so far</td><td>4</td><td>8</td></tr>

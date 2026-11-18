@@ -423,6 +423,13 @@ a.lockup:hover { color: var(--fg); }
 }
 
 .page-head { display: flex; flex-direction: column; gap: 1.5rem; }
+/* The home hero: the headline runs the full width above the paragraph and the box, so the top of
+   the services list shows on a laptop's first screen. */
+.hero.home > .wrap { padding-block: clamp(2rem, 4.5vw, 3.5rem) clamp(2rem, 4vw, 3rem); }
+.hero-head { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; }
+.hero-head h1 { max-width: 19em; }
+.hero.home .pair { align-items: start; }
+.hero.home + .band > .wrap { padding-top: clamp(1.5rem, 3vw, 2.5rem); }
 .page-head h1 { font-size: var(--t-xxl); line-height: 1; letter-spacing: -0.025em; max-width: 14em; }
 .page-head h1.long { font-size: var(--t-xl); line-height: 1.04; letter-spacing: -0.022em; max-width: 22em; }
 

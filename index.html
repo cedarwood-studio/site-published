@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cedarwood Studio: Rails upgrade test runs and GitHub Actions CI diagnostics, fixed price</title>
-<meta name="description" content="A one-person software studio. We test-run your Rails upgrade in a sandbox and show what broke ($2,500, Rails 7.0 to 8.1), and we measure why your GitHub Actions CI is slow or flaky ($500). Public samples for both.">
+<meta name="description" content="We test-run your Rails upgrade in a sandbox and show what breaks before you commit to it ($2,500, Rails 7.0 to 8.1), and we measure why your GitHub Actions CI is slow or flaky ($500). Fixed prices, and public sample reports for both.">
 <link rel="canonical" href="https://cedarwood.studio/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cedarwood Studio">
 <meta property="og:title" content="Cedarwood Studio: Rails upgrade test runs and GitHub Actions CI diagnostics, fixed price">
-<meta property="og:description" content="A one-person software studio. We test-run your Rails upgrade in a sandbox and show what broke ($2,500, Rails 7.0 to 8.1), and we measure why your GitHub Actions CI is slow or flaky ($500). Public samples for both.">
+<meta property="og:description" content="We test-run your Rails upgrade in a sandbox and show what breaks before you commit to it ($2,500, Rails 7.0 to 8.1), and we measure why your GitHub Actions CI is slow or flaky ($500). Fixed prices, and public sample reports for both.">
 <meta property="og:url" content="https://cedarwood.studio/">
 <meta property="og:image" content="https://cedarwood.studio/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -43,9 +43,9 @@
 <div class="hero-copy">
   <p class="eyebrow">Software and infrastructure studio</p>
   <h1>Find out what your Rails upgrade breaks before you commit to it.</h1>
-  <p class="lead">We test-run the first version step in a sandbox, check what your tests never reach, and show you what broke, with the file and line and a staged plan. It's a fixed $2,500, credited toward an upgrade you start with us.</p>
+  <p class="lead">We run the first version step of your upgrade in a sandbox and find what breaks, in the code your tests reach and in the code they don't. You get a reviewed report with the file and line for each break we find, and a staged plan. It's a fixed $2,500, credited toward an upgrade you start with us.</p>
   <p class="actions"><a class="cta" href="rails-upgrade-roadmap/">Rails Upgrade Roadmap <span class="amt">$2,500</span></a> <a class="more" href="rails-7-1-to-8-upgrade-what-broke/">See one measured upgrade</a></p>
-  <p class="updated">Last updated <time datetime="2026-11-17">November 17, 2026</time></p>
+  <p class="updated">Last updated <time datetime="2026-11-18">November 18, 2026</time></p>
 </div>
 <aside class="sheet" aria-label="How the studio works">
   <div class="sheet-head">
@@ -55,7 +55,7 @@
   <dl class="sheet-grid">
     <div><dt>Price</dt><dd>Fixed, and on the page</dd></div>
     <div><dt>To buy</dt><dd>An email. No call needed</dd></div>
-    <div class="wide"><dt>Checks</dt><dd>Each report comes with the data behind its numbers, so you can check it yourself</dd></div>
+    <div class="wide"><dt>Proof</dt><dd>Complete sample reports are public, with the data behind their numbers</dd></div>
   </dl>
 </aside>
 </div></section>
@@ -69,8 +69,8 @@
     <h2 id="services-h">Two fixed-price services</h2>
     <div class="ledger">
       <div class="ledger-head"><span class="name">Service</span><span class="what">When it fits</span><span class="price">Price</span></div>
-      <div class="ledger-row"><span class="name"><a href="rails-upgrade-roadmap/">Rails Upgrade Roadmap</a></span><span class="what">Your Rails 7 app is out of support or close to it, and nobody can say how big the upgrade is. Rails 7.0 to 8.1 only, for now.</span><span class="price">$2,500</span></div>
-      <div class="ledger-row"><span class="name"><a href="github-actions-ci-diagnostic/">CI Diagnostic</a></span><span class="what">Your GitHub Actions runs are slow, or they fail and pass on re-run. Failing tests are named for pytest and unittest.</span><span class="price">$500</span></div>
+      <div class="ledger-row"><span class="name"><a href="rails-upgrade-roadmap/">Rails Upgrade Roadmap</a></span><span class="what">Your Rails 7 app is out of support or close to it, and nobody can say how big the upgrade is. For Rails 7.0 to 8.1. Node.js upgrade runs are in preparation.</span><span class="price">$2,500</span></div>
+      <div class="ledger-row"><span class="name"><a href="github-actions-ci-diagnostic/">CI Diagnostic</a></span><span class="what">Your GitHub Actions runs are slow, or they fail and pass on re-run.</span><span class="price">$500</span></div>
     </div>
   </div>
 </div></section>
@@ -82,10 +82,10 @@
   </div>
   <div class="split-body prose">
     <h2 id="measured-h">What we've measured in public</h2>
-    <p>We ran a Rails 7.1 to 8 upgrade on a 27,000-line open-source app and published the report, its data and the record of each stage. Two pages come from it.</p>
+    <p>We upgraded a 27,000-line open-source Rails app from 7.1 to 8.0 in public and published what broke. Two pages come from it.</p>
     <ul>
-      <li><a href="rails-7-1-to-8-upgrade-what-broke/">What breaks when upgrading Rails 7.1 to 8, and how long does each stage take?</a> Each breaking line, how it was found, and the machine time for every stage.</li>
-      <li><a href="can-an-ai-agent-do-a-rails-upgrade/">Can an AI agent do a Rails upgrade?</a> Our first automated pass found four of eight lines flagged as breaking and shipped a defect. What changed after that.</li>
+      <li><a href="rails-7-1-to-8-upgrade-what-broke/">What breaks when upgrading Rails 7.1 to 8, and how long does it take?</a> Each breaking line, what caught it, and what changed without breaking anything.</li>
+      <li><a href="can-an-ai-agent-do-a-rails-upgrade/">Can an AI agent do a Rails upgrade?</a> What an automated first pass found, what it missed, and what a review caught.</li>
     </ul>
     <p>The samples are at <a href="https://github.com/cedarwood-studio/upgrade-roadmap-sample">cedarwood-studio/upgrade-roadmap-sample</a> and <a href="https://github.com/cedarwood-studio/ci-diagnostic-sample">cedarwood-studio/ci-diagnostic-sample</a>.</p>
   </div>
@@ -94,7 +94,7 @@
 <section class="band ink" aria-labelledby="who-h"><div class="wrap pair">
   <div class="stack stack-3">
     <h2 id="who-h">Who is behind this</h2>
-    <p class="measure">Cedarwood Studio is a one-person studio. The <a href="about/">about page</a> says who is behind it, how the work is done and how your code is handled.</p>
+    <p class="measure">The <a href="about/">about page</a> says who answers for the work, what his record is and how your code is handled.</p>
   </div>
   <div class="lockup-stacked" aria-hidden="true">
     <span class="lockup-name"><span>Cedarwood</span><span>Studio<span class="stop"></span></span></span>

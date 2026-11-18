@@ -584,6 +584,8 @@ a.lockup:hover { color: var(--fg); }
   white-space: pre-wrap; overflow-wrap: anywhere;
 }
 .report-cmd .prompt { color: var(--ash); }
+.prose figure img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); }
+.prose figure figcaption { margin-top: 0.5rem; }
 figcaption { margin-top: 1.25rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--fg-2); }
 
 /* --- prose ---------------------------------------------------------------- */

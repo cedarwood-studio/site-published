@@ -19,10 +19,10 @@
 <body>
 <main>
   <h1 id="h">Authorization received</h1>
-  <p id="msg">Paste the line below into the Locomotive chat. It is a one-time code and expires in a few minutes.</p>
+  <p id="msg">Paste the line below where you were asked for it. It is a one-time code and expires in a few minutes.</p>
   <textarea id="out" readonly></textarea>
   <button id="copy" type="button">Copy</button>
-  <p class="muted">Nothing on this page is sent anywhere. The code only becomes a token once the brain exchanges it with Upwork.</p>
+  <p class="muted">Nothing on this page is sent anywhere. The code only becomes a token once it is exchanged with Upwork.</p>
 </main>
 <script>
 (function () {
@@ -33,10 +33,10 @@
   if (q.get('error')) {
     h.textContent = 'Authorization failed';
     h.className = 'err';
-    msg.textContent = 'Upwork returned an error. Paste the line below into the Locomotive chat so the brain can read it.';
-    out.value = 'upwork-mcp error ' + q.get('error') + ' ' + (q.get('error_description') || '');
+    msg.textContent = 'Upwork returned an error. Paste the line below where you were asked for it.';
+    out.value = location.href;
   } else if (q.get('code')) {
-    out.value = 'upwork-mcp code ' + q.get('code') + ' state ' + (q.get('state') || '');
+    out.value = location.href;
   } else {
     h.textContent = 'Nothing to do here';
     msg.textContent = 'This page only has a job at the end of an Upwork authorization.';

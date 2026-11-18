@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Can an AI agent do a Rails upgrade? What happened when we ran one | Cedarwood Studio</title>
-<meta name="description" content="We ran an automated Rails 7.1 to 8 upgrade on a 27,000-line open-source app. The first pass found 4 of 8 lines flagged as breaking and shipped a stage that didn't start with one optional feature on, with every check green. What changed, and the checks to run if you try it.">
+<title>Can an AI agent do a Rails upgrade? One measured test | Cedarwood Studio</title>
+<meta name="description" content="We tested an automated Rails 7.1 to 8 upgrade on a 27,000-line open-source app. The first pass found 4 of 8 lines flagged as breaking and shipped a stage that didn't start with one optional feature on, with every check green. What the review caught, and what to ask before you trust one.">
 <link rel="canonical" href="https://cedarwood.studio/can-an-ai-agent-do-a-rails-upgrade/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cedarwood Studio">
-<meta property="og:title" content="Can an AI agent do a Rails upgrade? What happened when we ran one | Cedarwood Studio">
-<meta property="og:description" content="We ran an automated Rails 7.1 to 8 upgrade on a 27,000-line open-source app. The first pass found 4 of 8 lines flagged as breaking and shipped a stage that didn't start with one optional feature on, with every check green. What changed, and the checks to run if you try it.">
+<meta property="og:title" content="Can an AI agent do a Rails upgrade? One measured test | Cedarwood Studio">
+<meta property="og:description" content="We tested an automated Rails 7.1 to 8 upgrade on a 27,000-line open-source app. The first pass found 4 of 8 lines flagged as breaking and shipped a stage that didn't start with one optional feature on, with every check green. What the review caught, and what to ask before you trust one.">
 <meta property="og:url" content="https://cedarwood.studio/can-an-ai-agent-do-a-rails-upgrade/">
 <meta property="og:image" content="https://cedarwood.studio/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../styles.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Can an AI agent do a Rails upgrade?","description":"We ran an automated Rails 7.1 to 8 upgrade on a 27,000-line open-source app. The first pass found 4 of 8 lines flagged as breaking and shipped a stage that didn't start with one optional feature on, with every check green. What changed, and the checks to run if you try it.","url":"https://cedarwood.studio/can-an-ai-agent-do-a-rails-upgrade/","datePublished":"2026-11-17","dateModified":"2026-11-17","author":{"@type":"Organization","name":"Cedarwood Studio","url":"https://cedarwood.studio/"},"publisher":{"@type":"Organization","name":"Cedarwood Studio","url":"https://cedarwood.studio/"},"isBasedOn":["https://github.com/cedarwood-studio/upgrade-roadmap-sample"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Can an AI agent do a Rails upgrade?","description":"We tested an automated Rails 7.1 to 8 upgrade on a 27,000-line open-source app. The first pass found 4 of 8 lines flagged as breaking and shipped a stage that didn't start with one optional feature on, with every check green. What the review caught, and what to ask before you trust one.","url":"https://cedarwood.studio/can-an-ai-agent-do-a-rails-upgrade/","datePublished":"2026-11-17","dateModified":"2026-11-18","author":{"@type":"Organization","name":"Cedarwood Studio","url":"https://cedarwood.studio/"},"publisher":{"@type":"Organization","name":"Cedarwood Studio","url":"https://cedarwood.studio/"},"isBasedOn":["https://github.com/cedarwood-studio/upgrade-roadmap-sample"]}</script>
 </head>
 <body data-asset="answer-can-an-ai-agent-do-a-rails-upgrade">
 
@@ -43,7 +43,7 @@
   <p class="eyebrow">Measured answer</p>
   <h1 class="long">Can an AI agent do a Rails upgrade?</h1>
   <p class="lead measure">On the one app we measured, an automated pass did most of the edits, and fast. Left alone, it missed half of what was flagged as breaking. The first pass on a 27,000-line Rails app found four of eight flagged lines and shipped a stage that passed every check and didn't start with one feature switched on.</p>
-  <p class="updated">Last updated <time datetime="2026-11-17">November 17, 2026</time></p>
+  <p class="updated">Last updated <time datetime="2026-11-18">November 18, 2026</time></p>
 </section>
 
 <section class="band"><div class="wrap split">
@@ -52,38 +52,29 @@
     <h2>What the first pass did</h2>
   </div>
   <div class="split-body prose">
-  <p>The app is Postal, an open-source mail server on Rails 7.1.6, with 851 test examples. Nobody at the Postal project asked for this, and we aren't affiliated with the project. The target was Rails 8.1. The first run was our own automated pipeline as it stood then: a search of the code against rules taken from the release notes, then a staged build, with no review.</p>
-  <p>The first run took 16.1 minutes of machine time to produce a report, with no review. Its search found four lines that documented Rails changes would break. Three stages then went onto a fork, and each passed every check we had: the test suite, a comparison of 170 recorded HTTP responses, and the same checks again on GitHub Actions.</p>
-  <p>Then the work got a review, by a separate automated pass that had no part in producing it. It read the Rails component changelogs and compared our branches with the Postal project's own upgrade work. It found four more breaking lines, and one of them was already a defect in the third stage. With an optional start-up feature switched on, the app didn't start on Rails 7.2. The test suite loads that line and never executes it, so no check we had could see it.</p>
+  <p>The app is Postal, an open-source mail server on Rails 7.1.6, with 851 test examples. Nobody at the Postal project asked for this, and we aren't affiliated with the project. The target was Rails 8.1. The first pass was automated, with no separate review.</p>
+  <p>It found four lines that documented Rails changes would break. Three stages then went onto a fork, and each passed every check we had: the test suite, a comparison of 170 recorded HTTP responses, and the same checks again on GitHub Actions.</p>
+  <p>Then the work got a separate review pass. It found four more breaking lines, and one of them was already a defect in the third stage. With an optional start-up feature switched on, the app didn't start on Rails 7.2. The test suite loads that line and never executes it, so no check we had could see it.</p>
   <div class="table-wrap"><table class="versions">
-    <thead><tr><th scope="col">Measure</th><th scope="col">First run</th><th scope="col">Second run</th></tr></thead>
+    <thead><tr><th scope="col">Measure</th><th scope="col">First pass alone</th><th scope="col">First pass plus the review</th></tr></thead>
     <tbody>
-      <tr><td>Report, machine time</td><td>16.1 min</td><td>36.9 min</td></tr>
-      <tr><td>Review before the stages began</td><td>None</td><td>11.9 min of the 36.9</td></tr>
-      <tr><td>Lines found by the search, of the 8 flagged as breaking so far</td><td>4</td><td>8, four of them by rules written after the review named them</td></tr>
-      <tr><td>Items the report's review added</td><td>No review</td><td>11, six of which no planned check would have shown</td></tr>
-      <tr><td>Rules searched, by source</td><td>Release notes</td><td>Release notes, component changelogs, dropped gems, unexecuted calls</td></tr>
-      <tr><td>Rails 7.2 stage</td><td>14.9 min, every check green, didn't start with one feature on</td><td>Four fixes and five review rounds before a review passed it</td></tr>
-      <tr><td>Rails 8.0 stage</td><td>Not run</td><td>18.6 min, passed its first review in 18.2 min</td></tr>
+      <tr><td>Breaking lines found, of the 8 flagged so far</td><td>4</td><td>8</td></tr>
+      <tr><td>Rails 7.2 stage</td><td>Every check green, and it didn't start with one feature on</td><td>Four fixes and five review rounds before it passed</td></tr>
+      <tr><td>Rails 8.0 stage</td><td>Not run</td><td>Passed its first review</td></tr>
     </tbody>
   </table></div>
-  <p>Source: <a href="https://github.com/cedarwood-studio/upgrade-roadmap-sample">cedarwood-studio/upgrade-roadmap-sample</a>, <code>README.md</code> and <code>EXECUTION.md</code>, dated November 13, 2026. Both runs are on the same commit. The page on <a href="../rails-7-1-to-8-upgrade-what-broke/">what the upgrade broke</a> lists each line and each stage's time. One of the eight was later read as not a break at this target.</p>
+  <p>Source: <a href="https://github.com/cedarwood-studio/upgrade-roadmap-sample">cedarwood-studio/upgrade-roadmap-sample</a>, dated November 13, 2026. Both runs are on the same commit. The page on <a href="../rails-7-1-to-8-upgrade-what-broke/">what the upgrade broke</a> lists each line and each stage. One of the eight was later read as not a break at this target. The review also had the Postal project's own upgrade branches to compare against, which most apps won't have.</p>
   </div>
 </div></section>
 
-<section class="band" id="changed"><div class="wrap split">
+<section class="band" id="review"><div class="wrap split">
   <div class="rail">
     <span class="rail-num">B</span>
-    <h2>What we changed</h2>
+    <h2>What the review caught</h2>
   </div>
   <div class="split-body prose">
-  <ul>
-    <li><strong>An independent review is a fixed step.</strong> Every report and every stage gets a review pass that had no part in writing it. It reads the changelogs for the version step, reads every framework call the suite never runs, compares with any upgrade work the project already has, and tries to break the stage. A stage isn't published until a review passes it.</li>
-    <li><strong>The rules got wider.</strong> They now come from the component changelogs as well as the release notes. Every gem a step drops from the lock is searched for in the app. Framework calls the suite loads and never runs are listed and read. The app is started once per optional feature, before the upgrade and after every stage.</li>
-    <li><strong>Baselines are generated from the runs.</strong> The first report's sentence about the test suite claimed more than its runs showed. The sentence is now built from the results, and a checker rejects a report that claims more. On the sample it reads "834 of 851 examples pass with the network off; 17 more pass with the network on; 5 fail in that run."</li>
-  </ul>
-  <p>We ran the new review on the defective stage as it stood, without telling it what had been found. It found the defect in 6.7 minutes by starting the app with the feature on, and found two more problems with the stage.</p>
-  <p>One caution about the second run's eight of eight. Four of those lines are found by rules we wrote after the first review named them. That shows the rules work on a known answer. It doesn't show the search would find them cold. The first review also had the project's own upgrade branches to compare against, which most apps won't have.</p>
+  <p>A separate review is now a fixed step in our work. Every Upgrade Roadmap and every stage gets one, and a stage isn't published until it passes.</p>
+  <p>We also put the defective stage through that review as it stood, without being told what had been found. The review found the defect, and two more problems with the stage.</p>
   </div>
 </div></section>
 
@@ -93,22 +84,19 @@
     <h2>What it means if you try it</h2>
   </div>
   <div class="split-body prose">
-  <p>Our first run produced a plan that read well and made most of the edits. It took 16 minutes and it was half right. Three of the four misses were in code that no test runs. A current coding agent that loops on running, starting and fixing may do better than that first run did. We haven't run one on the same commit to compare.</p>
-  <p>If you run an agent on your own upgrade, these are the checks that caught what ours missed.</p>
-  <ol>
-    <li>Start the app the way production starts it, once for each optional feature, before the upgrade and after every step. A green test suite didn't show a process that wouldn't boot.</li>
-    <li>Read the component changelogs for each version step, and don't stop at the release notes. We found the password reset break only through the Active Model changelog.</li>
-    <li>Diff the lock file at each step and search your code for every gem that left it. Two gems left ours while the app still used them.</li>
-    <li>List the framework calls your tests load and never execute, and read each one against the changelogs. The line that broke start-up was on that list.</li>
-    <li>Update the lock conservatively. An unconstrained update on our 7.2 step moved 26 gems the step didn't need.</li>
-    <li>Have something that didn't write the change review it, and have it measure what it claims. One of our own review findings was wrong, and a later review caught it by running the code.</li>
-  </ol>
-  <p>What we can't tell you is how this goes on a harder app, or what a senior Rails engineer's read would add. The sample is one easy app, four of its ten stages have run, and no person has reviewed it yet.</p>
+  <p>The automated pass produced a plan that read well and made most of the edits. It was half right, and three of the four misses were in code that no test runs. This is one app and one automated pass, tested in November 2026, and no person has reviewed the sample yet. We haven't run a current coding agent on the same commit to compare.</p>
+  <p>If an agent, a contractor or your own team does your upgrade, these are the questions we'd ask of the result.</p>
+  <ul>
+    <li>Does the app start in every configuration production uses, after every step? A green test suite didn't show a process that wouldn't boot.</li>
+    <li>What checked the code that no test runs? That's where three of the four misses were.</li>
+    <li>What changed in behavior without failing anything? The 7.2 step moved a time zone by an hour, and no test failed.</li>
+    <li>Was it reviewed by something other than what wrote it?</li>
+  </ul>
   </div>
 </div></section>
 
 <section class="band bench"><div class="wrap">
-  <p class="eyebrow accent">If you'd like these checks run for you (Rails 7.0 to 8.1 today)</p>
+  <p class="eyebrow accent">If you'd like your upgrade assessed before you start (Rails 7.0 to 8.1)</p>
   <a class="next-row" href="../rails-upgrade-roadmap/"><span class="name">Rails Upgrade Roadmap</span><span class="price">$2,500</span></a>
 </div></section>
 </main>

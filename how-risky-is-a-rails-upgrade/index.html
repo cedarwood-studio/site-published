@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How risky is a Rails upgrade, and how can you tell before you start? One measured upgrade, 7.1 to 8 | Cedarwood Studio</title>
+<meta name="description" content="The story of one measured Rails 7.1 to 8 upgrade of a 27,000-line open-source app: what the unchanged code showed, how the work was staged, the break that passed every test, what the reviews found, and what to ask of any upgrade before you trust it.">
+<link rel="canonical" href="https://cedarwood.studio/how-risky-is-a-rails-upgrade/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cedarwood Studio">
+<meta property="og:title" content="How risky is a Rails upgrade, and how can you tell before you start? One measured upgrade, 7.1 to 8 | Cedarwood Studio">
+<meta property="og:description" content="The story of one measured Rails 7.1 to 8 upgrade of a 27,000-line open-source app: what the unchanged code showed, how the work was staged, the break that passed every test, what the reviews found, and what to ask of any upgrade before you trust it.">
+<meta property="og:url" content="https://cedarwood.studio/how-risky-is-a-rails-upgrade/">
+<meta property="og:image" content="https://cedarwood.studio/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How risky is a Rails upgrade, and how can you tell before you start?","description":"The story of one measured Rails 7.1 to 8 upgrade of a 27,000-line open-source app: what the unchanged code showed, how the work was staged, the break that passed every test, what the reviews found, and what to ask of any upgrade before you trust it.","url":"https://cedarwood.studio/how-risky-is-a-rails-upgrade/","datePublished":"2026-11-18","dateModified":"2026-11-18","author":{"@type":"Organization","name":"Cedarwood Studio","url":"https://cedarwood.studio/"},"publisher":{"@type":"Organization","name":"Cedarwood Studio","url":"https://cedarwood.studio/"},"isBasedOn":["https://github.com/cedarwood-studio/upgrade-roadmap-sample"]}</script>
+</head>
+<body data-asset="answer-how-risky-is-a-rails-upgrade">
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="lockup" href=".././" aria-label="Cedarwood Studio by Jack Senechal, home">
+      <span class="lockup-name">Cedarwood Studio<span class="stop" aria-hidden="true"></span></span>
+      <span class="lockup-rule" aria-hidden="true"></span>
+      <span class="lockup-credit">by Jack Senechal</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="../nodejs-upgrade-roadmap/">Node.js Upgrade Roadmap</a></li>
+        <li><a href="../github-actions-ci-diagnostic/">CI Diagnostic</a></li>
+        <li><a href="../about/">About</a></li>
+        <li><a class="cta small" href="../rails-upgrade-roadmap/">Rails Upgrade Roadmap <span class="amt">$2,500</span></a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="page-head wrap">
+  <p class="eyebrow">Measured answer</p>
+  <h1 class="long">How risky is a Rails upgrade, and how can you tell before you start?</h1>
+  <p class="lead measure">We took Postal, an open-source Rails app of about 27,000 lines, from Rails 7.1 to 8.0 in stages and recorded what broke. Measured on the unchanged code, the numbers pointed at the risk. Of the 16 lines in the app's code that we confirmed by reading to match a documented breaking change, the test suite ran 4. A first pass found four of the eight lines flagged as breaking. A separate review pass found the other four, and one of them had already shipped in a stage that passed every test and wouldn't start with one feature switched on.</p>
+  <p class="updated">Last updated <time datetime="2026-11-18">November 18, 2026</time></p>
+</section>
+
+<section class="band"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">A</span>
+    <h2>Where the app started</h2>
+  </div>
+  <div class="split-body prose">
+  <p>Postal is an open-source mail server, MIT licensed, with 851 test examples. At the commit we measured it pins Rails 7.1.6, a series that had been past end of life for more than a year, and the nearest series still getting security fixes was 8.1, three steps away. We aren't affiliated with the Postal project.</p>
+  <p>These numbers describe the unchanged code, the commit the upgrade started from. We took them in our second run on that commit, after the first attempt described below had shown what to look for.</p>
+  <div class="table-wrap"><table class="versions labels">
+    <thead><tr><th scope="col">On the unchanged code</th><th scope="col">On this app</th></tr></thead>
+    <tbody>
+      <tr><td>Release series to a supported version</td><td>3 (7.2, 8.0, 8.1)</td></tr>
+      <tr><td>Gems that block a step</td><td>1 of 162</td></tr>
+      <tr><td>Lines that match documented breaking changes</td><td>78</td></tr>
+      <tr><td>Of those, confirmed by reading the code</td><td>28</td></tr>
+      <tr><td>Confirmed lines in the lock file</td><td>12 of 28</td></tr>
+      <tr><td>Confirmed lines outside the lock file that the test suite runs</td><td>4 of 16</td></tr>
+      <tr><td>Source files in <code>app</code> and <code>lib</code> the test suite never loads</td><td>39 of 154</td></tr>
+      <tr><td>Rails deprecation warnings</td><td>0</td></tr>
+    </tbody>
+  </table></div>
+  <p>The first two rows made it look easy. One blocking gem, a development tool, and a fast suite put this app at the easy end. The suite was strong on the library code and thin on the web interface, the background worker and anything behind a setting, and the three breaks we ranked highest all sat in lines it doesn't run. A green test run said very little about this upgrade, as the first attempt showed.</p>
+  <p>Source: <a href="https://github.com/cedarwood-studio/upgrade-roadmap-sample">cedarwood-studio/upgrade-roadmap-sample</a>, dated November 13, 2026.</p>
+  </div>
+</div></section>
+
+<section class="band" id="stages"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">B</span>
+    <h2>How we staged it</h2>
+  </div>
+  <div class="split-body prose">
+  <p>The plan has ten stages. We carried out the first four on our own fork, each as its own pull request. The <a href="https://github.com/cedarwood-studio/upgrade-roadmap-sample/blob/main/EXECUTION.md">record of each stage</a> is public.</p>
+  <ol>
+    <li>65 new tests that pin down how the app behaves today, before any version moves.</li>
+    <li>The blocking gem removed.</li>
+    <li>Rails 7.1.6 to 7.2.4.</li>
+    <li>Rails 7.2.4 to 8.0.5.2.</li>
+  </ol>
+  <p>Each stage has to keep the same behavior on the new version. The tests that passed before still pass, and 170 recorded HTTP responses come back the same or each difference is written down with its upstream source. After the first attempt we added two more conditions: the app still starts in every configuration it started in before, and the lock file moves only what the step needs.</p>
+  </div>
+</div></section>
+
+<section class="band" id="missed"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">C</span>
+    <h2>The break every test missed</h2>
+  </div>
+  <div class="split-body prose">
+  <p>A first pass through the upgrade found four of the eight lines flagged as breaking on the way to 8.1. One of its four, a change to column order in <code>schema.rb</code>, was later read as not a break at this target, because Rails 8.1.4 reverted it. In that first run, three stages went onto the fork, and each passed the test suite, the 170 recorded responses and the same checks again on GitHub Actions.</p>
+  <p>Then a separate review pass on that first run, which also compared it with the Postal project's own upgrade branches, found the other four. Where an app has an upgrade branch or an abandoned attempt of its own, the report reads it. One of the four was already in the 7.2 stage. Rails 7.2 moved <code>migration_context</code> from the database connection to the connection pool, and Postal calls it in the code that waits for migrations at start-up. With that feature switched on, the app exits with a <code>NoMethodError</code> before it serves anything. The test suite loads that file and never runs the line, so every check was green.</p>
+  <p>The other three wouldn't have shown up in the stages that ran.</p>
+  <ul>
+    <li>On 8.0, <code>has_secure_password</code> defines its own <code>password_reset_token</code>, which hides the app's database column of the same name, so every reset link lands on "This link has expired" and no test fails. The fix is one option, <code>reset_token: false</code>. We later wrote 6 tests that walk a reset, and on 8.0 4 of them fail without the fix.</li>
+    <li>On 8.1, Active Support stops depending on the <code>benchmark</code> gem, so it leaves the lock file, and the mail worker calls <code>Benchmark</code> without requiring it. No test loads that file. By our reading the worker would log the error and keep running, with the job never started, so mail would likely stop moving while the process looked healthy.</li>
+    <li>On 7.1 and 8.0, by our reading of the source, version 3 of the <code>json</code> gem rejects an option Active Support passes. Nothing pins the gem, so nothing fails until an unrelated update moves it, and then every <code>to_json</code> call does.</li>
+  </ul>
+  <p>The full list of breaks, with each file and line, is on the page about <a href="../rails-7-1-to-8-upgrade-what-broke/">what the upgrade broke</a>.</p>
+  </div>
+</div></section>
+
+<section class="band" id="review"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">D</span>
+    <h2>What the stage reviews found</h2>
+  </div>
+  <div class="split-body prose">
+  <p>We then ran the work again on the same commit and put the 7.2 stage, as first shipped, through the same review pass, blind to what had been found. Starting the app with the feature on hit the crash. The lock file had also moved 26 gems the step didn't need, <code>mail</code>, <code>nokogiri</code> and <code>rack</code> among them, which loaded a different version of the YAML library in an app that stores two columns as YAML.</p>
+  <p>The stage went back four times and was reviewed five times before a review passed it. Each round found something the round before hadn't.</p>
+  <ul>
+    <li>In production, a HEAD request that ends in an error page gets <code>Content-Length: 0</code> on 7.2 where 7.1 sent the page's length. No recorded request could show it, because none of them is a HEAD request.</li>
+    <li>The line Rails logs for each request ends differently on 7.2. No changelog mentions it. Comparing the two installed versions turned it up.</li>
+    <li>One catch was against our own plan. The plan said this step would change where the app takes its secret key from in development and test. Measuring it on both versions showed nothing changes, and the claim came out.</li>
+  </ul>
+  <p>On 7.2 the "Astana" time zone maps to a different zone, so a user who stored it sees times an hour off, and 5 of the 170 responses changed with it. No test failed. The 8.0 stage passed its first review, with three more differences to write down.</p>
+  </div>
+</div></section>
+
+<section class="band" id="browser"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">E</span>
+    <h2>What a browser showed</h2>
+  </div>
+  <div class="split-body prose">
+  <p>We also compared the running app in a browser on Rails 7.1.6 and on the 8.0 stage, 118 screen states at a desktop and a phone width, both in the test environment. No screen broke, and the browser agreed with the tests and the recorded responses. The <a href="../rails-7-1-to-8-upgrade-what-broke/#browser">what-broke page</a> has the numbers and two of the images.</p>
+  </div>
+</div></section>
+
+<section class="band" id="judge"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">F</span>
+    <h2>What it means for your upgrade</h2>
+  </div>
+  <div class="split-body prose">
+  <p>On this app the risk sat where the tests didn't reach. Before you start, the number we'd look at first is how much of what the upgrade touches your suite actually runs. Here it was 4 of the 16 confirmed lines outside the lock file, and in hindsight that said more than the suite's line coverage, 83.7 percent of the lines in the files it loads, or the count of deprecation warnings, which was zero.</p>
+  <p>The second lesson is that one pass wasn't enough. That's why our work gets a separate review before it moves on.</p>
+  <p>Whoever does your upgrade, these are the questions we'd ask of the result.</p>
+  <ul>
+    <li>Does the app start in every configuration production uses, after every step? A green suite didn't show a process that wouldn't boot.</li>
+    <li>What checked the code no test runs? That's where the worst breaks were.</li>
+    <li>What changed in behavior without failing anything, and is each change written down with its source?</li>
+    <li>Did the lock file move only what the step needed?</li>
+    <li>Was the work reviewed independently of whoever did it, and did that review run the app or only read the diff?</li>
+  </ul>
+  <p>This is one app, at the easy end, and four of its ten stages. The stages still to run, Rails 8.1 and the framework defaults, are the ones that touch cookies, sessions and how stored data is serialized.</p>
+  </div>
+</div></section>
+
+<section class="band bench"><div class="wrap">
+  <p class="eyebrow accent">If you'd like your own upgrade's risk measured before you start (Rails 7.0 to 8.1)</p>
+  <a class="next-row" href="../rails-upgrade-roadmap/"><span class="name">Rails Upgrade Roadmap</span><span class="price">$2,500</span></a>
+</div></section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-in">
+    <p class="footer-mark"><span class="lockup-name">Cedarwood Studio<span class="stop" aria-hidden="true"></span></span></p>
+    <p class="legal">Cedarwood Studio by Jack Senechal. <a href="mailto:hello@cedarwood.studio">hello@cedarwood.studio</a></p>
+    <ul class="footer-links">
+      <li><a href="../rails-upgrade-roadmap/">Rails Upgrade Roadmap</a></li>
+      <li><a href="../nodejs-upgrade-roadmap/">Node.js Upgrade Roadmap</a></li>
+      <li><a href="../github-actions-ci-diagnostic/">CI Diagnostic</a></li>
+      <li><a href="../rails-7-1-to-8-upgrade-what-broke/">What a Rails 7.1 to 8.0 upgrade broke</a></li>
+      <li><a href="../how-risky-is-a-rails-upgrade/">How risky is a Rails upgrade?</a></li>
+      <li><a href="../terms/">Terms, refunds and cancellation</a></li>
+      <li><a href="../privacy/">Privacy</a></li>
+      <li><a href="../about/">About</a></li>
+    </ul>
+    <p class="copyright">&copy; 2026 Cedarwood Studio</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -30,10 +30,10 @@
     </a>
     <nav class="site-nav" aria-label="Main">
       <ul>
-        <li><a href="../nodejs-upgrade-roadmap/">Node.js Upgrade Roadmap</a></li>
+        <li><a href="../rails-upgrade-roadmap/">Rails Upgrade Roadmap</a></li>
         <li><a href="../github-actions-ci-diagnostic/">CI Diagnostic</a></li>
         <li><a href="../about/">About</a></li>
-        <li><a class="cta small" href="../rails-upgrade-roadmap/">Rails Upgrade Roadmap <span class="amt">$2,500</span></a></li>
+        <li><a class="cta small" href="../nodejs-upgrade-roadmap/">Node.js Upgrade Roadmap <span class="amt">$2,500</span></a></li>
       </ul>
     </nav>
   </div>
@@ -45,7 +45,7 @@
   <p class="eyebrow">Node.js Upgrade Roadmap · $2,500 fixed</p>
   <h1>Know what your Node.js upgrade breaks before you commit to it.</h1>
   <p class="actions hero-act"><a class="cta" href="mailto:hello@cedarwood.studio?subject=Node.js%20Upgrade%20Roadmap&amp;body=Hello%2C%0A%0AWe'd%20like%20a%20Node.js%20Upgrade%20Roadmap.%20Here's%20what%20you%20asked%20for%3A%0A%0ANode.js%20version%20today%3A%0A%0ARepository%3A%0A%0APackage%20manager%20and%20test%20runner%3A%0A%0ASize%3A%0A%0AAnything%20already%20tried%3A%0A%0AHow%20you%20found%20us%3A%0A">Email to start a Node.js Upgrade Roadmap</a> <a class="more" href="#buy">How to buy</a></p>
-  <p class="lead measure">A Node.js upgrade rarely fails where the version number changes. On the open-source app we ran the upgrade on, the lock file stopped installing at Node.js 20 because a native package no longer builds, and the step to Node.js 18 broke four tests because localhost began resolving to the IPv6 address first. For a fixed $2,500 we run the first version step of your upgrade in a sandbox, find what breaks in the code your tests reach and in the code they don't, and put the result through a separate review. You get a report of every break we found, with the file and line, and a staged plan with an effort range. We call it an Upgrade Roadmap.</p>
+  <p class="lead measure">A Node.js upgrade can break before a single test runs. A native package can stop building on the new version, and a change in how localhost resolves can fail tests that passed on the old one. For a fixed $2,500 we run the first version step of your upgrade in a sandbox, find what breaks in the code your tests reach and in the code they don't, and review the result before it reaches you. You get a report of every break we found, with the file and line, and a staged plan with an effort range. We call it an Upgrade Roadmap.</p>
   <p class="updated">Last updated <time datetime="2026-11-18">November 18, 2026</time></p>
 </div>
 <aside class="sheet" aria-label="Node.js Upgrade Roadmap, price and terms">
@@ -76,8 +76,8 @@
   <div class="split-body prose">
   <dl class="facts">
     <dt>How risky</dt><dd>Every line we found that the upgrade breaks, each with its file, the version step it breaks on and the upstream change behind it. That includes the code your tests never run, and the packages that stop installing on a newer Node.js.</dd>
-    <dt>How big</dt><dd>The upgrade as stages small enough to ship one at a time, in order, with what each one has to change, what blocks it and an effort range. On the example app the plan has eight stages and an effort range of 27 to 159 engineer hours.</dd>
-    <dt>What it costs</dt><dd>If you want us to do the upgrade, we quote it in writing from your report before any upgrade work starts, and the $2,500 comes off it. The report is yours either way, and your own team can do the work from it.</dd>
+    <dt>How big</dt><dd>The upgrade as stages small enough to ship one at a time, in order, with what each one has to change, what blocks it and an effort range. In the example below, the plan has eight stages and an effort range of 27 to 159 engineer hours.</dd>
+    <dt>What it costs</dt><dd>We quote the upgrade from your report, and the fee comes off it.</dd>
   </dl>
   </div>
 </div></section>
@@ -97,7 +97,7 @@
     <li><strong>A staged plan.</strong> Each stage says what it changes, what blocks it and what it should take, with the effort range and what drives it.</li>
     <li><strong>The evidence.</strong> Each finding cites the file, the upstream source or the measurement behind it, and a script checks the report's numbers against the data they came from. Your engineers can go through it line by line. It comes as files: the report, the plan and the data behind them.</li>
   </ul>
-  <p>Before the report reaches you it gets a separate review pass, and then a person's review.</p>
+  <p>Every report is reviewed by a person before it's delivered.</p>
   <p><strong>Out of scope:</strong> doing the upgrade itself, which is quoted separately, and anything in production. The report is assessed from a read-only copy of your repository in a sandbox.</p>
   </div>
 </div></section>
@@ -108,7 +108,7 @@
     <h2>Why reading the release notes isn't enough</h2>
   </div>
   <div class="split-body prose">
-  <p>Changing the version and fixing what the tests complain about is the easy part, and the install can fail before a single test runs. This is what we found running the upgrade on an open-source Node.js development server.</p>
+  <p>Changing the version and fixing what the tests complain about is the easy part, and the install can fail before a single test runs. This is what we found running the upgrade on the example below, an open-source Node.js development server.</p>
   <ul>
     <li>The committed lock file stopped installing at Node.js 20, because a native package, <code>node-sass</code>, no longer builds there. Every later step failed the same way until it was replaced.</li>
     <li>The step to Node.js 18 broke four tests that passed on 16. <code>localhost</code> began resolving to the IPv6 address first. A read-through of the changes had listed it as a difference to accept, and running the step showed it was a failure.</li>
@@ -124,7 +124,7 @@
   <p class="eyebrow">An example run</p>
   <h2>What we found on one Node.js app</h2>
   <p>We ran the upgrade on an open-source development mail server, from Node.js 16 toward 26. Nobody at the project asked for it, and we aren't affiliated with it.</p>
-  <p>A separate review of the report added 12 findings, 11 of them ones no check had caught.</p>
+  <p>A separate review pass on the report added 12 findings, 11 of them ones no check had caught.</p>
   <p>Running Rails instead? The <a class="more" href="../rails-upgrade-roadmap/">Rails Upgrade Roadmap</a> is the same offer for Rails applications.</p>
   </div>
   <figure>
@@ -139,7 +139,7 @@
           <tr><td>Tests that passed on 16 and failed on 18</td><td class="num">4</td></tr>
           <tr><td>Stages in the plan</td><td class="num">8</td></tr>
           <tr><td>Effort range, engineer hours</td><td class="num">27 to 159</td></tr>
-          <tr><td>Findings from the separate review</td><td class="num">12</td></tr>
+          <tr><td>Findings from the review pass</td><td class="num">12</td></tr>
           <tr><td>Of those, found by no check</td><td class="num">11</td></tr>
         </tbody>
       </table>
@@ -154,7 +154,7 @@
     <h2>If you go ahead with the upgrade</h2>
   </div>
   <div class="split-body prose">
-  <p>We quote the upgrade from your report, in writing, before any upgrade work starts. The $2,500 comes off it. Neither of us is obliged to go on to the upgrade.</p>
+  <p>We quote the upgrade from your report, in writing, before any upgrade work starts, and the $2,500 comes off it. The report is yours either way. Neither of us is obliged to go on to the upgrade.</p>
   <p>Each version step comes as its own change, checked and reviewed before the next one begins. For an app with a web interface, an upgrade we carry out also gets a before-and-after comparison of the running app, screen by screen. You're shown the screens that changed, and the full set of captures is kept so you can audit it.</p>
   </div>
 </div></section>
@@ -167,7 +167,7 @@
   <div class="split-body prose">
   <dl class="facts">
     <dt>Who answers for it</dt><dd>Cedarwood Studio is one engineer's practice, and he answers for the report you get. The <a href="../about/">about page</a> has his record.</dd>
-    <dt>How the work is done</dt><dd>On a software factory built for upgrades by an engineer who led an infrastructure team. It holds hundreds of upgrade rules, each drawn from the official release notes and documentation for a specific version step, and a sandbox that installs your application and runs its own test suite. Every report also gets an independent review pass, added after a first pass caught only <a href="../can-an-ai-agent-do-a-rails-upgrade/">4 of the 8</a> breaking lines on our public Rails test. A person reviews the report before it's delivered.</dd>
+    <dt>How the work is done</dt><dd>On a software factory built for upgrades by an engineer who led an infrastructure team. It holds hundreds of upgrade rules, each drawn from the official release notes and documentation for a specific version step, and a sandbox that installs your application and runs its own test suite. Every report is reviewed by a person before it's delivered.</dd>
     <dt>Your code</dt><dd>Read-only access, and nothing in production. Your code runs in a container that holds no credentials. AI tooling processes it, in whole or in part, through a provider that's named in your written scope before you pay or give access, with model training on our data turned off. We delete our copies when you ask. What passes through the provider is held under its retention policy, which we don't control. The <a href="../terms/#handling">terms</a> have the detail.</dd>
     <dt>Paperwork</dt><dd>We can sign a mutual NDA before you send anything. The <a href="../terms/">terms</a> cover the rest, including how we handle your code and data.</dd>
   </dl>
@@ -228,7 +228,7 @@
       <li><a href="../nodejs-upgrade-roadmap/">Node.js Upgrade Roadmap</a></li>
       <li><a href="../github-actions-ci-diagnostic/">CI Diagnostic</a></li>
       <li><a href="../rails-7-1-to-8-upgrade-what-broke/">What a Rails 7.1 to 8.0 upgrade broke</a></li>
-      <li><a href="../can-an-ai-agent-do-a-rails-upgrade/">Can an AI agent do a Rails upgrade?</a></li>
+      <li><a href="../how-risky-is-a-rails-upgrade/">How risky is a Rails upgrade?</a></li>
       <li><a href="../terms/">Terms, refunds and cancellation</a></li>
       <li><a href="../privacy/">Privacy</a></li>
       <li><a href="../about/">About</a></li>

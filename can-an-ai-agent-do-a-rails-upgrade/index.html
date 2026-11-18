@@ -1,124 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Can an AI agent do a Rails upgrade? One measured test | Cedarwood Studio</title>
-<meta name="description" content="We tested an automated Rails 7.1 to 8 upgrade on a 27,000-line open-source app. The first pass found 4 of 8 lines flagged as breaking and shipped a stage that didn't start with one optional feature on, with every check green. What the review caught, and what to ask before you trust one.">
-<link rel="canonical" href="https://cedarwood.studio/can-an-ai-agent-do-a-rails-upgrade/">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Cedarwood Studio">
-<meta property="og:title" content="Can an AI agent do a Rails upgrade? One measured test | Cedarwood Studio">
-<meta property="og:description" content="We tested an automated Rails 7.1 to 8 upgrade on a 27,000-line open-source app. The first pass found 4 of 8 lines flagged as breaking and shipped a stage that didn't start with one optional feature on, with every check green. What the review caught, and what to ask before you trust one.">
-<meta property="og:url" content="https://cedarwood.studio/can-an-ai-agent-do-a-rails-upgrade/">
-<meta property="og:image" content="https://cedarwood.studio/og.png">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="../favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="../styles.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Can an AI agent do a Rails upgrade?","description":"We tested an automated Rails 7.1 to 8 upgrade on a 27,000-line open-source app. The first pass found 4 of 8 lines flagged as breaking and shipped a stage that didn't start with one optional feature on, with every check green. What the review caught, and what to ask before you trust one.","url":"https://cedarwood.studio/can-an-ai-agent-do-a-rails-upgrade/","datePublished":"2026-11-17","dateModified":"2026-11-18","author":{"@type":"Organization","name":"Cedarwood Studio","url":"https://cedarwood.studio/"},"publisher":{"@type":"Organization","name":"Cedarwood Studio","url":"https://cedarwood.studio/"},"isBasedOn":["https://github.com/cedarwood-studio/upgrade-roadmap-sample"]}</script>
+<meta name="robots" content="noindex">
+<title>Moved | Cedarwood Studio</title>
+<link rel="canonical" href="https://cedarwood.studio/how-risky-is-a-rails-upgrade/">
+<meta http-equiv="refresh" content="0; url=https://cedarwood.studio/how-risky-is-a-rails-upgrade/">
 </head>
-<body data-asset="answer-can-an-ai-agent-do-a-rails-upgrade">
-
-<a class="skip" href="#main">Skip to content</a>
-
-<header class="masthead">
-  <div class="wrap masthead-in">
-    <a class="lockup" href=".././" aria-label="Cedarwood Studio by Jack Senechal, home">
-      <span class="lockup-name">Cedarwood Studio<span class="stop" aria-hidden="true"></span></span>
-      <span class="lockup-rule" aria-hidden="true"></span>
-      <span class="lockup-credit">by Jack Senechal</span>
-    </a>
-    <nav class="site-nav" aria-label="Main">
-      <ul>
-        <li><a href="../nodejs-upgrade-roadmap/">Node.js Upgrade Roadmap</a></li>
-        <li><a href="../github-actions-ci-diagnostic/">CI Diagnostic</a></li>
-        <li><a href="../about/">About</a></li>
-        <li><a class="cta small" href="../rails-upgrade-roadmap/">Rails Upgrade Roadmap <span class="amt">$2,500</span></a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-
-<main id="main">
-<section class="page-head wrap">
-  <p class="eyebrow">Measured answer</p>
-  <h1 class="long">Can an AI agent do a Rails upgrade?</h1>
-  <p class="lead measure">On the one app we measured, an automated pass did most of the edits, and fast. Left alone, it missed half of what was flagged as breaking. The first pass on a 27,000-line Rails app found four of eight flagged lines and shipped a stage that passed every check and didn't start with one feature switched on.</p>
-  <p class="updated">Last updated <time datetime="2026-11-18">November 18, 2026</time></p>
-</section>
-
-<section class="band"><div class="wrap split">
-  <div class="rail">
-    <span class="rail-num">A</span>
-    <h2>What the first pass did</h2>
-  </div>
-  <div class="split-body prose">
-  <p>The app is Postal, an open-source mail server on Rails 7.1.6, with 851 test examples. Nobody at the Postal project asked for this, and we aren't affiliated with the project. The target was Rails 8.1. The first pass was automated, with no separate review.</p>
-  <p>It found four lines that documented Rails changes would break. Three stages then went onto a fork, and each passed every check we had: the test suite, a comparison of 170 recorded HTTP responses, and the same checks again on GitHub Actions.</p>
-  <p>Then the work got a separate review pass. It found four more breaking lines, and one of them was already a defect in the third stage. With an optional start-up feature switched on, the app didn't start on Rails 7.2. The test suite loads that line and never executes it, so no check we had could see it.</p>
-  <div class="table-wrap"><table class="versions wide labels">
-    <thead><tr><th scope="col">Measure</th><th scope="col">First pass alone</th><th scope="col">First pass plus the review</th></tr></thead>
-    <tbody>
-      <tr><td>Breaking lines found, of the 8 flagged so far</td><td>4</td><td>8</td></tr>
-      <tr><td>Rails 7.2 stage</td><td>Every check green, and it didn't start with one feature on</td><td>Four fixes and five review rounds before it passed</td></tr>
-      <tr><td>Rails 8.0 stage</td><td>Not run</td><td>Passed its first review</td></tr>
-    </tbody>
-  </table></div>
-  <p>Source: <a href="https://github.com/cedarwood-studio/upgrade-roadmap-sample">cedarwood-studio/upgrade-roadmap-sample</a>, dated November 13, 2026. Both runs are on the same commit. The page on <a href="../rails-7-1-to-8-upgrade-what-broke/">what the upgrade broke</a> lists each line and each stage. One of the eight was later read as not a break at this target. The review also had the Postal project's own upgrade branches to compare against, which most apps won't have.</p>
-  </div>
-</div></section>
-
-<section class="band" id="review"><div class="wrap split">
-  <div class="rail">
-    <span class="rail-num">B</span>
-    <h2>What the review caught</h2>
-  </div>
-  <div class="split-body prose">
-  <p>A separate review pass is a fixed step in our work. Every Upgrade Roadmap and every stage gets one, and a stage isn't published until it passes. A Roadmap you pay for gets a person's review after that.</p>
-  <p>We also put the defective stage through that review as it stood, without being told what had been found. The review found the defect, and two more problems with the stage.</p>
-  </div>
-</div></section>
-
-<section class="band" id="buyer"><div class="wrap split">
-  <div class="rail">
-    <span class="rail-num">C</span>
-    <h2>What it means if you try it</h2>
-  </div>
-  <div class="split-body prose">
-  <p>The automated pass produced a plan that read well and made most of the edits. It was half right, and three of the four misses were in code that no test runs. This is one app and one automated pass, tested in November 2026.</p>
-  <p>If an agent, a contractor or your own team does your upgrade, these are the questions we'd ask of the result.</p>
-  <ul>
-    <li>Does the app start in every configuration production uses, after every step? A green test suite didn't show a process that wouldn't boot.</li>
-    <li>What checked the code that no test runs? That's where three of the four misses were.</li>
-    <li>What changed in behavior without failing anything? The 7.2 step moved a time zone by an hour, and no test failed.</li>
-    <li>Was it reviewed by something other than what wrote it?</li>
-  </ul>
-  </div>
-</div></section>
-
-<section class="band bench"><div class="wrap">
-  <p class="eyebrow accent">If you'd like your upgrade assessed before you start (Rails 7.0 to 8.1)</p>
-  <a class="next-row" href="../rails-upgrade-roadmap/"><span class="name">Rails Upgrade Roadmap</span><span class="price">$2,500</span></a>
-</div></section>
-</main>
-
-<footer class="site-footer">
-  <div class="wrap footer-in">
-    <p class="footer-mark"><span class="lockup-name">Cedarwood Studio<span class="stop" aria-hidden="true"></span></span></p>
-    <p class="legal">Cedarwood Studio by Jack Senechal. <a href="mailto:hello@cedarwood.studio">hello@cedarwood.studio</a></p>
-    <ul class="footer-links">
-      <li><a href="../rails-upgrade-roadmap/">Rails Upgrade Roadmap</a></li>
-      <li><a href="../nodejs-upgrade-roadmap/">Node.js Upgrade Roadmap</a></li>
-      <li><a href="../github-actions-ci-diagnostic/">CI Diagnostic</a></li>
-      <li><a href="../rails-7-1-to-8-upgrade-what-broke/">What a Rails 7.1 to 8.0 upgrade broke</a></li>
-      <li><a href="../can-an-ai-agent-do-a-rails-upgrade/">Can an AI agent do a Rails upgrade?</a></li>
-      <li><a href="../terms/">Terms, refunds and cancellation</a></li>
-      <li><a href="../privacy/">Privacy</a></li>
-      <li><a href="../about/">About</a></li>
-    </ul>
-    <p class="copyright">&copy; 2026 Cedarwood Studio</p>
-  </div>
-</footer>
-
+<body>
+<p><a href="https://cedarwood.studio/how-risky-is-a-rails-upgrade/">This page has moved.</a></p>
 </body>
 </html>

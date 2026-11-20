@@ -64,6 +64,7 @@
   <div class="sheet-foot">
     <a class="cta block" href="mailto:hello@cedarwood.studio?subject=Node.js%20Upgrade%20Roadmap&amp;body=Hello%2C%0A%0AWe'd%20like%20a%20Node.js%20Upgrade%20Roadmap.%20Here's%20what%20you%20asked%20for%3A%0A%0ANode.js%20version%20today%3A%0A%0ARepository%3A%0A%0APackage%20manager%20and%20test%20runner%3A%0A%0ASize%3A%0A%0AAnything%20already%20tried%3A%0A%0AHow%20you%20found%20us%3A%0A">Email to start a Node.js Upgrade Roadmap</a>
     <span class="note">You don't need a call to buy it. <a href="#buy">How to buy</a>.</span>
+    <span class="webmail" data-webmail>No mail program opens? Send to <span class="mono">hello@cedarwood.studio</span> with the subject <span class="mono" data-subject>Node.js Upgrade Roadmap</span>. <button type="button" class="copy" data-copy="email" hidden>Copy address</button> <button type="button" class="copy" data-copy="subject" hidden>Copy subject</button></span>
   </div>
 </aside>
 </div></section>
@@ -210,6 +211,7 @@
   <h2 id="next-h">Next step</h2>
   <p class="measure">Send your Node.js version, how your tests run and the repository link. We'll say whether the run fits your application before you pay anything.</p>
   <p><a class="cta" href="mailto:hello@cedarwood.studio?subject=Node.js%20Upgrade%20Roadmap&amp;body=Hello%2C%0A%0AWe'd%20like%20a%20Node.js%20Upgrade%20Roadmap.%20Here's%20what%20you%20asked%20for%3A%0A%0ANode.js%20version%20today%3A%0A%0ARepository%3A%0A%0APackage%20manager%20and%20test%20runner%3A%0A%0ASize%3A%0A%0AAnything%20already%20tried%3A%0A%0AHow%20you%20found%20us%3A%0A">Email to start a Node.js Upgrade Roadmap</a></p>
+  <p class="note"><span class="webmail" data-webmail>No mail program opens? Send to <span class="mono">hello@cedarwood.studio</span> with the subject <span class="mono" data-subject>Node.js Upgrade Roadmap</span>. <button type="button" class="copy" data-copy="email" hidden>Copy address</button> <button type="button" class="copy" data-copy="subject" hidden>Copy subject</button></span></p>
   <!-- PAYMENT LINK -->
   </div>
   <div class="lockup-stacked" aria-hidden="true">
@@ -235,5 +237,155 @@
   </div>
 </footer>
 
+<script>
+(function () {
+  var C = {"token":"phc_kQcpSHKJ3cC7HJokpxcdp9Bpbze7tQxDWkUzfL3CoDRx","api_host":"https://e.cedarwood.studio","ui_host":"https://eu.posthog.com","email":"hello@cedarwood.studio"};
+  var w = window, d = document, nav = navigator, loc = w.location;
+  var ADDRESS = C.email;
+  var asset = (d.body && d.body.getAttribute('data-asset')) || '';
+  var page = asset.replace(/^(offer|answer|page)-/, '');
+  var isOffer = /^offer-/.test(asset);
+
+  // ---- Campaign tags in the address. Read from the link, kept nowhere. ----
+  var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+  var tags = {};
+  (loc.search || '').replace(/^\?/, '').split('&').forEach(function (kv) {
+    var i = kv.indexOf('=');
+    if (i < 1) return;
+    var k = kv.slice(0, i), v;
+    if (UTM.indexOf(k) < 0) return;
+    try { v = decodeURIComponent(kv.slice(i + 1).replace(/\+/g, ' ')); } catch (e) { return; }
+    if (/^[A-Za-z0-9 ._-]{1,64}$/.test(v)) tags[k] = v;
+  });
+
+  // ---- The reference in the email subject: experiment id and variant, e.g. " [ref e1-a]". ----
+  function reference() {
+    var c = (tags.utm_campaign || '').toLowerCase().split('-')[0];
+    if (!/^[a-z0-9]{1,8}$/.test(c)) return '';
+    var v = (tags.utm_content || '').toLowerCase();
+    return c + (/^[a-z0-9]{1,8}$/.test(v) ? '-' + v : '');
+  }
+  var ref = isOffer ? reference() : '';
+  var suffix = ref ? ' [ref ' + ref + ']' : '';
+  if (suffix) {
+    [].forEach.call(d.querySelectorAll('a[href^="mailto:"]'), function (a) {
+      var href = a.getAttribute('href'), q = href.indexOf('?');
+      if (q < 0) return;
+      var parts = href.slice(q + 1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        if (parts[i].indexOf('subject=') === 0) parts[i] = 'subject=' + encodeURIComponent(decodeURIComponent(parts[i].slice(8)) + suffix);
+      }
+      a.setAttribute('href', href.slice(0, q + 1) + parts.join('&'));
+    });
+    [].forEach.call(d.querySelectorAll('[data-subject]'), function (el) { el.textContent += suffix; });
+  }
+
+  // ---- The visit counter. Not loaded at all when the browser asks not to be tracked. ----
+  var optedOut = nav.globalPrivacyControl === true || nav.doNotTrack === '1' || w.doNotTrack === '1' || nav.msDoNotTrack === '1';
+  var queue = [], ph = null, sent = {};
+  function track(name, props, once) {
+    if (optedOut || !isOffer && name === 'order_intent') return;
+    if (once) { if (sent[once]) return; sent[once] = 1; }
+    var p = { offer: page };
+    for (var k in props) p[k] = props[k];
+    for (var t in tags) p[t] = tags[t];
+    if (ph) ph.capture(name, p, { transport: 'sendBeacon', send_instantly: true }); else if (queue.length < 10) queue.push([name, p]);
+  }
+
+  var ALLOWED_EVENTS = { '$pageview': 1, '$pageleave': 1, sample_click: 1, order_intent: 1 };
+  var ALLOWED_PROPS = { token: 1, distinct_id: 1, offer: 1, method: 1, utm_source: 1, utm_medium: 1, utm_campaign: 1, utm_content: 1, utm_term: 1 };
+  // Ad click identifiers that posthog-js lifts from the address: none is wanted, whatever the ad platform appends.
+  var CLICK_IDS = ['li_fat_id', 'gad_source', 'mc_cid', 'gclid', 'gclsrc', 'dclid', 'gbraid', 'wbraid', 'fbclid', 'msclkid', 'twclid', 'igshid', 'ttclid', 'rdt_cid', 'epik', 'qclid', 'sccid', 'oppref', 'bfcid', 'irclid', '_kx'];
+  function beforeSend(cp) {
+    if (!cp || !ALLOWED_EVENTS[cp.event]) return null;
+    for (var i = 0; i < CLICK_IDS.length; i++) delete cp.properties[CLICK_IDS[i]];
+    if (cp.event.charAt(0) !== '$') {
+      var keep = {};
+      for (var k in cp.properties) if (ALLOWED_PROPS[k] || k.charAt(0) === '$') keep[k] = cp.properties[k];
+      cp.properties = keep;
+    }
+    delete cp.$set; delete cp.$set_once;
+    return cp;
+  }
+
+  if (!optedOut) {
+    var s = d.createElement('script');
+    s.async = true;
+    s.src = C.api_host.replace(/\/$/, '') + '/static/array.js';
+    s.onload = function () {
+      var lib = w.posthog;
+      if (!lib || typeof lib.init !== 'function') return;
+      lib.init(C.token, {
+        api_host: C.api_host,
+        ui_host: C.ui_host,
+        cookieless_mode: 'always',
+        person_profiles: 'never',
+        persistence: 'memory',
+        ip: false,
+        respect_dnt: true,
+        autocapture: false,
+        capture_pageview: true,
+        capture_pageleave: true,
+        capture_dead_clicks: false,
+        capture_exceptions: false,
+        capture_performance: false,
+        enable_heatmaps: false,
+        disable_session_recording: true,
+        disable_surveys: true,
+        advanced_disable_feature_flags: true,
+        advanced_disable_feature_flags_on_first_load: true,
+        disable_external_dependency_loading: true,
+        before_send: beforeSend
+      });
+      ph = lib;
+      while (queue.length) { var q = queue.shift(); ph.capture(q[0], q[1], { transport: 'sendBeacon', send_instantly: true }); }
+    };
+    d.head.appendChild(s);
+  }
+
+  // ---- The three events. Links are read when clicked, so nothing is added to them. ----
+  var SAMPLE = /^https:\/\/github\.com\/cedarwood-studio\/(ci-diagnostic-sample|upgrade-roadmap-sample)(\/|$|\?|#)/;
+  d.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (/^mailto:/i.test(href) && href.indexOf('?subject=') > 0) track('order_intent', { method: 'mailto' }, 'mailto');
+    else if (SAMPLE.test(href)) track('sample_click', {});
+  }, true);
+
+  // ---- The visible address, for people whose mail program does not open. ----
+  function copyText(text, done) {
+    function fallback() {
+      var t = d.createElement('textarea');
+      t.value = text; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
+      d.body.appendChild(t); t.select();
+      try { d.execCommand('copy'); } catch (e) { /* the text is on screen to select */ }
+      d.body.removeChild(t); done();
+    }
+    if (nav.clipboard && nav.clipboard.writeText) nav.clipboard.writeText(text).then(done, fallback); else fallback();
+  }
+  [].forEach.call(d.querySelectorAll('[data-copy]'), function (btn) {
+    btn.hidden = false;
+    var label = btn.textContent;
+    btn.addEventListener('click', function () {
+      var what = btn.getAttribute('data-copy');
+      var text = what === 'subject' ? (d.querySelector('[data-subject]') || {}).textContent || '' : ADDRESS;
+      copyText(text, function () {
+        btn.textContent = 'Copied';
+        setTimeout(function () { btn.textContent = label; }, 2000);
+      });
+      track('order_intent', { method: 'copy' }, 'copy');
+    });
+  });
+  // The address copied by hand counts the same, once.
+  d.addEventListener('copy', function () {
+    var s = w.getSelection ? w.getSelection() : null;
+    if (!s || String(s).indexOf(ADDRESS) < 0) return;
+    var n = s.anchorNode && (s.anchorNode.nodeType === 1 ? s.anchorNode : s.anchorNode.parentNode);
+    if (n && n.closest && n.closest('footer')) return;
+    track('order_intent', { method: 'copy' }, 'copy');
+  });
+})();
+</script>
 </body>
 </html>

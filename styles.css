@@ -491,6 +491,14 @@ a.lockup:hover { color: var(--fg); }
 .sheet-foot.row { flex-direction: row; flex-wrap: wrap; align-items: baseline; justify-content: space-between; }
 .sheet-foot .sheet-price { font-size: 1.75rem; }
 .sheet-foot .note { font-size: var(--t-xs); text-align: center; }
+
+/* The visible address for people whose mail program does not open (only on a build with the counter on). */
+.webmail { font-size: var(--t-xs); line-height: 1.5; text-align: center; color: var(--fg-2); }
+.webmail .mono { font-family: var(--font-mono); overflow-wrap: anywhere; }
+.webmail .copy { font: inherit; color: inherit; background: none; border: 0; padding: 0.35rem 0.25rem; margin: 0; text-decoration: underline; cursor: pointer; }
+.webmail .copy:hover { color: var(--accent); }
+.band.ink .webmail { text-align: left; }
+.band.ink .webmail .copy:hover { color: var(--heartwood-on-ink); }
 .sheet.inline { max-width: 30rem; }
 
 /* --- the ledger: services listed as rows with a mono price ---------------- */

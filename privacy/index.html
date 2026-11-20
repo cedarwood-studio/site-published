@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy | Cedarwood Studio</title>
-<meta name="description" content="This site sets no cookies, runs no analytics and has no forms. What happens to an email you send us, and how payments and client materials are handled.">
+<meta name="description" content="This site sets no cookies and has no forms. How we count visits with PostHog, what happens to an email you send us, and how payments and client materials are handled.">
 <link rel="canonical" href="https://cedarwood.studio/privacy/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cedarwood Studio">
 <meta property="og:title" content="Privacy | Cedarwood Studio">
-<meta property="og:description" content="This site sets no cookies, runs no analytics and has no forms. What happens to an email you send us, and how payments and client materials are handled.">
+<meta property="og:description" content="This site sets no cookies and has no forms. How we count visits with PostHog, what happens to an email you send us, and how payments and client materials are handled.">
 <meta property="og:url" content="https://cedarwood.studio/privacy/">
 <meta property="og:image" content="https://cedarwood.studio/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -40,7 +40,7 @@
 <main id="main">
 <section class="page-head wrap">
   <h1>Privacy</h1>
-  <p class="lead measure">This site sets no cookies, runs no analytics and has no forms. The only way to reach us is an email you send from your own mail program.</p>
+  <p class="lead measure">This site sets no cookies and has no forms. It counts visits with a counter that stores nothing in your browser. The only way to reach us is an email.</p>
   <p class="updated">Last updated <time datetime="2026-11-18">November 18, 2026</time></p>
 </section>
 
@@ -49,14 +49,16 @@
     <span class="rail-label">Privacy</span>
   </div>
   <div class="split-body prose">
-  <h2>Cookies and tracking</h2>
-  <p>This site sets no cookies and stores nothing in your browser. It runs no analytics and no tracking scripts.</p>
+  <h2>Cookies and visit counting</h2>
+  <p>This site sets no cookies and stores nothing in your browser.</p>
+  <p>We count visits with PostHog, hosted in the EU. To count a visitor without a cookie, PostHog combines your IP address and browser details into a code that changes every day, and it doesn't keep the IP address. It records the page, the site that sent you, the campaign tag in the link, your browser (with its operating system, screen size, language and time zone), your country, how far you scrolled before you left, and whether you clicked a sample report, clicked the email button or copied our email address or subject. It never receives your name, your email address or anything you send us.</p>
+  <p>If your browser sends Global Privacy Control or Do Not Track, the counter doesn't load. To opt out, turn either one on in your browser. We don't use advertising pixels, and we don't share visit data with ad platforms.</p>
 
   <h2>Hosting</h2>
-  <p>The site is hosted on GitHub Pages. Cloudflare provides the domain's DNS and forwards email sent to hello@cedarwood.studio. Like any web host, GitHub processes standard request data, such as your IP address, to serve the site. The pages load nothing from any other host: no analytics, fonts, scripts or images from third parties.</p>
+  <p>The site is hosted on GitHub Pages. Cloudflare provides the domain's DNS and forwards email sent to hello@cedarwood.studio. Like any web host, GitHub processes standard request data, such as your IP address, to serve the site. The pages load their fonts, scripts and images from this site. The visit counter loads through our own address, e.cedarwood.studio, which passes requests on to PostHog.</p>
 
   <h2>Email</h2>
-  <p>If you email us, we receive your address and whatever you write. We keep the message so we can reply and as a business record, in a mailbox run by our email provider. Our service providers, including our email provider and AI tooling providers, process what you send us. We don't add you to a mailing list, and we don't sell what you send or share it for advertising.</p>
+  <p>If you email us, we receive your address and whatever you write. We keep the message so we can reply and as a business record, in a mailbox run by our email provider. Our service providers, including our email provider and AI tooling providers, process what you send us. We don't add you to a mailing list, and we don't sell what you send or share it for advertising. If you arrive from one of our ads, the email button adds a short reference to the subject line. You can delete it.</p>
 
   <h2>Payments</h2>
   <p>Payment is by card through Stripe, from a payment link or invoice we send by email. You enter your card details on Stripe's pages, and Stripe handles them under its own privacy policy. We never see or store your full card number. We do see the record of the payment, which includes your name, your email address, the amount and whether it was paid, and we keep it as a business record.</p>
@@ -90,5 +92,155 @@
   </div>
 </footer>
 
+<script>
+(function () {
+  var C = {"token":"phc_kQcpSHKJ3cC7HJokpxcdp9Bpbze7tQxDWkUzfL3CoDRx","api_host":"https://e.cedarwood.studio","ui_host":"https://eu.posthog.com","email":"hello@cedarwood.studio"};
+  var w = window, d = document, nav = navigator, loc = w.location;
+  var ADDRESS = C.email;
+  var asset = (d.body && d.body.getAttribute('data-asset')) || '';
+  var page = asset.replace(/^(offer|answer|page)-/, '');
+  var isOffer = /^offer-/.test(asset);
+
+  // ---- Campaign tags in the address. Read from the link, kept nowhere. ----
+  var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+  var tags = {};
+  (loc.search || '').replace(/^\?/, '').split('&').forEach(function (kv) {
+    var i = kv.indexOf('=');
+    if (i < 1) return;
+    var k = kv.slice(0, i), v;
+    if (UTM.indexOf(k) < 0) return;
+    try { v = decodeURIComponent(kv.slice(i + 1).replace(/\+/g, ' ')); } catch (e) { return; }
+    if (/^[A-Za-z0-9 ._-]{1,64}$/.test(v)) tags[k] = v;
+  });
+
+  // ---- The reference in the email subject: experiment id and variant, e.g. " [ref e1-a]". ----
+  function reference() {
+    var c = (tags.utm_campaign || '').toLowerCase().split('-')[0];
+    if (!/^[a-z0-9]{1,8}$/.test(c)) return '';
+    var v = (tags.utm_content || '').toLowerCase();
+    return c + (/^[a-z0-9]{1,8}$/.test(v) ? '-' + v : '');
+  }
+  var ref = isOffer ? reference() : '';
+  var suffix = ref ? ' [ref ' + ref + ']' : '';
+  if (suffix) {
+    [].forEach.call(d.querySelectorAll('a[href^="mailto:"]'), function (a) {
+      var href = a.getAttribute('href'), q = href.indexOf('?');
+      if (q < 0) return;
+      var parts = href.slice(q + 1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        if (parts[i].indexOf('subject=') === 0) parts[i] = 'subject=' + encodeURIComponent(decodeURIComponent(parts[i].slice(8)) + suffix);
+      }
+      a.setAttribute('href', href.slice(0, q + 1) + parts.join('&'));
+    });
+    [].forEach.call(d.querySelectorAll('[data-subject]'), function (el) { el.textContent += suffix; });
+  }
+
+  // ---- The visit counter. Not loaded at all when the browser asks not to be tracked. ----
+  var optedOut = nav.globalPrivacyControl === true || nav.doNotTrack === '1' || w.doNotTrack === '1' || nav.msDoNotTrack === '1';
+  var queue = [], ph = null, sent = {};
+  function track(name, props, once) {
+    if (optedOut || !isOffer && name === 'order_intent') return;
+    if (once) { if (sent[once]) return; sent[once] = 1; }
+    var p = { offer: page };
+    for (var k in props) p[k] = props[k];
+    for (var t in tags) p[t] = tags[t];
+    if (ph) ph.capture(name, p, { transport: 'sendBeacon', send_instantly: true }); else if (queue.length < 10) queue.push([name, p]);
+  }
+
+  var ALLOWED_EVENTS = { '$pageview': 1, '$pageleave': 1, sample_click: 1, order_intent: 1 };
+  var ALLOWED_PROPS = { token: 1, distinct_id: 1, offer: 1, method: 1, utm_source: 1, utm_medium: 1, utm_campaign: 1, utm_content: 1, utm_term: 1 };
+  // Ad click identifiers that posthog-js lifts from the address: none is wanted, whatever the ad platform appends.
+  var CLICK_IDS = ['li_fat_id', 'gad_source', 'mc_cid', 'gclid', 'gclsrc', 'dclid', 'gbraid', 'wbraid', 'fbclid', 'msclkid', 'twclid', 'igshid', 'ttclid', 'rdt_cid', 'epik', 'qclid', 'sccid', 'oppref', 'bfcid', 'irclid', '_kx'];
+  function beforeSend(cp) {
+    if (!cp || !ALLOWED_EVENTS[cp.event]) return null;
+    for (var i = 0; i < CLICK_IDS.length; i++) delete cp.properties[CLICK_IDS[i]];
+    if (cp.event.charAt(0) !== '$') {
+      var keep = {};
+      for (var k in cp.properties) if (ALLOWED_PROPS[k] || k.charAt(0) === '$') keep[k] = cp.properties[k];
+      cp.properties = keep;
+    }
+    delete cp.$set; delete cp.$set_once;
+    return cp;
+  }
+
+  if (!optedOut) {
+    var s = d.createElement('script');
+    s.async = true;
+    s.src = C.api_host.replace(/\/$/, '') + '/static/array.js';
+    s.onload = function () {
+      var lib = w.posthog;
+      if (!lib || typeof lib.init !== 'function') return;
+      lib.init(C.token, {
+        api_host: C.api_host,
+        ui_host: C.ui_host,
+        cookieless_mode: 'always',
+        person_profiles: 'never',
+        persistence: 'memory',
+        ip: false,
+        respect_dnt: true,
+        autocapture: false,
+        capture_pageview: true,
+        capture_pageleave: true,
+        capture_dead_clicks: false,
+        capture_exceptions: false,
+        capture_performance: false,
+        enable_heatmaps: false,
+        disable_session_recording: true,
+        disable_surveys: true,
+        advanced_disable_feature_flags: true,
+        advanced_disable_feature_flags_on_first_load: true,
+        disable_external_dependency_loading: true,
+        before_send: beforeSend
+      });
+      ph = lib;
+      while (queue.length) { var q = queue.shift(); ph.capture(q[0], q[1], { transport: 'sendBeacon', send_instantly: true }); }
+    };
+    d.head.appendChild(s);
+  }
+
+  // ---- The three events. Links are read when clicked, so nothing is added to them. ----
+  var SAMPLE = /^https:\/\/github\.com\/cedarwood-studio\/(ci-diagnostic-sample|upgrade-roadmap-sample)(\/|$|\?|#)/;
+  d.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (/^mailto:/i.test(href) && href.indexOf('?subject=') > 0) track('order_intent', { method: 'mailto' }, 'mailto');
+    else if (SAMPLE.test(href)) track('sample_click', {});
+  }, true);
+
+  // ---- The visible address, for people whose mail program does not open. ----
+  function copyText(text, done) {
+    function fallback() {
+      var t = d.createElement('textarea');
+      t.value = text; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
+      d.body.appendChild(t); t.select();
+      try { d.execCommand('copy'); } catch (e) { /* the text is on screen to select */ }
+      d.body.removeChild(t); done();
+    }
+    if (nav.clipboard && nav.clipboard.writeText) nav.clipboard.writeText(text).then(done, fallback); else fallback();
+  }
+  [].forEach.call(d.querySelectorAll('[data-copy]'), function (btn) {
+    btn.hidden = false;
+    var label = btn.textContent;
+    btn.addEventListener('click', function () {
+      var what = btn.getAttribute('data-copy');
+      var text = what === 'subject' ? (d.querySelector('[data-subject]') || {}).textContent || '' : ADDRESS;
+      copyText(text, function () {
+        btn.textContent = 'Copied';
+        setTimeout(function () { btn.textContent = label; }, 2000);
+      });
+      track('order_intent', { method: 'copy' }, 'copy');
+    });
+  });
+  // The address copied by hand counts the same, once.
+  d.addEventListener('copy', function () {
+    var s = w.getSelection ? w.getSelection() : null;
+    if (!s || String(s).indexOf(ADDRESS) < 0) return;
+    var n = s.anchorNode && (s.anchorNode.nodeType === 1 ? s.anchorNode : s.anchorNode.parentNode);
+    if (n && n.closest && n.closest('footer')) return;
+    track('order_intent', { method: 'copy' }, 'copy');
+  });
+})();
+</script>
 </body>
 </html>

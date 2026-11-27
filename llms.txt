@@ -22,7 +22,7 @@ Cedarwood Studio is the business name of Jack Senechal, a sole proprietor. Conta
 
 ## About
 
-- [About the studio](https://cedarwood.studio/about/): who is accountable, what his record is and how client code is handled.
+- [About the studio](https://cedarwood.studio/about/): what the studio does, how the work is done, how client code is handled, and who answers for the work.
 - [Work](https://cedarwood.studio/work/): Not Just Today, the studio's own web app, which shows a whole year of Google Calendar on one screen, with its measured performance; and the public sample reports.
 - [Terms, refunds and cancellation](https://cedarwood.studio/terms/)
 - [Privacy](https://cedarwood.studio/privacy/)

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Work: what we've built | Cedarwood Studio</title>
+<meta name="description" content="Work by Cedarwood Studio. Not Just Today, the studio's own web app, shows a whole year of Google Calendar on one screen, with read-only access and the events kept in the browser. Also the public sample reports for upgrades and CI.">
+<link rel="canonical" href="https://cedarwood.studio/work/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cedarwood Studio">
+<meta property="og:title" content="Work: what we've built | Cedarwood Studio">
+<meta property="og:description" content="Work by Cedarwood Studio. Not Just Today, the studio's own web app, shows a whole year of Google Calendar on one screen, with read-only access and the events kept in the browser. Also the public sample reports for upgrades and CI.">
+<meta property="og:url" content="https://cedarwood.studio/work/">
+<meta property="og:image" content="https://cedarwood.studio/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles.css">
+
+</head>
+<body data-asset="page-work">
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="lockup" href=".././" aria-label="Cedarwood Studio by Jack Senechal, home">
+      <span class="lockup-name">Cedarwood Studio<span class="stop" aria-hidden="true"></span></span>
+      <span class="lockup-rule" aria-hidden="true"></span>
+      <span class="lockup-credit">by Jack Senechal</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="../work/">Work</a></li>
+        <li><a href="../about/">About</a></li>
+        <li><a class="cta small" href="../#services">Services and prices</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="page-head wrap">
+  <p class="eyebrow">Work</p>
+  <h1>What we've built</h1>
+  <p class="lead measure">Each entry links to the real thing, with the numbers we measured.</p>
+  <p class="updated">Last updated <time datetime="2026-11-27">November 27, 2026</time></p>
+</section>
+
+<section class="band" id="not-just-today" aria-labelledby="njt-h"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">01</span>
+    <h2 id="njt-h">Not Just Today</h2>
+  </div>
+  <div class="split-body prose">
+  <p class="lead">Not Just Today shows a whole year of Google Calendar on one screen. Trips, vacations, school breaks and other events that run for days appear as bars across the twelve months, and the one-hour meetings are left out. It's free to use at <a href="https://notjust.today">notjust.today</a>.</p>
+  <p>It's the studio's own product. We designed and built it, and we run it in production.</p>
+  <figure><div class="shot"><a href="../work/not-just-today-sample-year.svg"><picture><source srcset="../work/not-just-today-sample-year-dark.svg" media="(prefers-color-scheme: dark)"><img src="../work/not-just-today-sample-year.svg" width="1200" height="972" alt="A sample year in Not Just Today: twelve months as rows, with colored bars for a ski weekend, school breaks, a two-week vacation in June, a crowded July, a conference and the winter holidays" loading="lazy"></picture></a></div><figcaption>A sample year, drawn by the app's own layout from made-up calendars.</figcaption></figure>
+
+  <h3>What we built</h3>
+  <dl class="facts">
+    <dt>The app</dt><dd>TypeScript in the browser, with a small server on Cloudflare. The page, its scripts and its styles come to 23.6 KB compressed, and a check on every change keeps them under 25 KB.</dd>
+    <dt>Sign-in</dt><dd>With Google. It asks for two read-only permissions, the list of calendars and the events on them, so it can't add, change or delete anything.</dd>
+    <dt>Privacy</dt><dd>The events are kept in the browser on the device, so the year draws at once next time. The server passes them along and keeps none of them. To keep the year up to date, it keeps only the access Google grants, encrypted, and Disconnect deletes it. There's no analytics, advertising or tracking.</dd>
+    <dt>Screens</dt><dd>All twelve months on a laptop or a big monitor, and three months at a time on a phone.</dd>
+  </dl>
+  <figure class="phone"><div class="shot"><a href="../work/not-just-today-phone.png"><picture><source srcset="../work/not-just-today-phone-dark.png 780w" sizes="(max-width: 424px) calc(100vw - 34px), 390px" media="(prefers-color-scheme: dark)"><img src="../work/not-just-today-phone.png" srcset="../work/not-just-today-phone.png 780w" sizes="(max-width: 424px) calc(100vw - 34px), 390px" width="390" height="844" alt="Not Just Today on a phone: October, November and December side by side, with bars for a weekend away, a Thanksgiving break and a winter break" loading="lazy"></picture></a></div><figcaption>On a phone, with made-up test calendars.</figcaption></figure>
+
+  <h3>Built to stay open all day</h3>
+  <p>A year view is a tab people leave open, so we measured what that costs. The account was synthetic and heavy, with 15 calendars and 5,000 events. The figures are from Chrome on our own machine, before and after a performance pass, on November 26, 2026.</p>
+  <div class="table-wrap"><table class="versions labels">
+    <thead><tr><th scope="col">Heavy synthetic account</th><th scope="col">Before</th><th scope="col">After</th></tr></thead>
+    <tbody>
+      <tr><td>First load, until the events are drawn</td><td class="num">1,066 ms</td><td class="num">533 ms</td></tr>
+      <tr><td>Event data sent on first load, uncompressed</td><td class="num">910 KB</td><td class="num">403 KB</td></tr>
+      <tr><td>Changing the year, script time</td><td class="num">112 ms</td><td class="num">27 ms</td></tr>
+      <tr><td>65 seconds open and idle, script time</td><td class="num">42.9 ms</td><td class="num">0.5 ms</td></tr>
+      <tr><td>Half an hour in a background tab, requests</td><td class="num">97</td><td class="num">0</td></tr>
+      <tr><td>Script memory after loading</td><td class="num">4.67 MB</td><td class="num">3.61 MB</td></tr>
+    </tbody>
+  </table></div>
+  <p>In a soak test simulating about 40 hours left open, with 300 refreshes, 200 year changes and 100 trips to a background tab, the app's page elements, listeners and stored events stayed flat, and none of the app's own objects grew in memory.</p>
+  <p><a class="more" href="https://notjust.today">Open Not Just Today</a></p>
+  <p>We build <a href="../build/">custom web apps</a> like this for businesses, to a written scope at a fixed price.</p>
+  </div>
+</div></section>
+
+<section class="band" id="samples" aria-labelledby="samples-h"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">02</span>
+    <h2 id="samples-h">Sample reports</h2>
+  </div>
+  <div class="split-body prose">
+  <ul>
+    <li><a href="https://github.com/cedarwood-studio/upgrade-roadmap-sample">cedarwood-studio/upgrade-roadmap-sample</a>: one complete Upgrade Roadmap for an open-source Rails app, the record of the first four stages, and a script that checks the report against its data. The upgrade is told stage by stage in <a href="../how-risky-is-a-rails-upgrade/">How risky is a Rails upgrade, and how can you tell before you start?</a></li>
+    <li><a href="https://github.com/cedarwood-studio/ci-diagnostic-sample">cedarwood-studio/ci-diagnostic-sample</a>: two complete CI Diagnostic reports on open-source projects, with the data behind every number.</li>
+  </ul>
+  <p>Both were built from public source and public data. None of the projects asked for them, and we aren't affiliated with any of them.</p>
+  </div>
+</div></section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-in">
+    <p class="legal">&copy; 2026 Cedarwood Studio by Jack Senechal. <a href="mailto:hello@cedarwood.studio">hello@cedarwood.studio</a></p>
+    <ul class="footer-links">
+      <li><a href="../rails-upgrade-roadmap/">Rails Upgrade Roadmap</a></li>
+      <li><a href="../nodejs-upgrade-roadmap/">Node.js Upgrade Roadmap</a></li>
+      <li><a href="../github-actions-ci-diagnostic/">CI Diagnostic</a></li>
+      <li><a href="../rails-7-1-to-8-upgrade-what-broke/">What a Rails 7.1 to 8.0 upgrade broke</a></li>
+      <li><a href="../how-risky-is-a-rails-upgrade/">How risky is a Rails upgrade?</a></li>
+      <li><a href="../terms/">Terms, refunds and cancellation</a></li>
+      <li><a href="../privacy/">Privacy</a></li>
+      <li><a href="../work/">Work</a></li>
+      <li><a href="../about/">About</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var C = {"token":"phc_kQcpSHKJ3cC7HJokpxcdp9Bpbze7tQxDWkUzfL3CoDRx","api_host":"https://e.cedarwood.studio","ui_host":"https://eu.posthog.com","email":"hello@cedarwood.studio"};
+  var w = window, d = document, nav = navigator, loc = w.location;
+  var ADDRESS = C.email;
+  var asset = (d.body && d.body.getAttribute('data-asset')) || '';
+  var page = asset.replace(/^(offer|answer|page)-/, '');
+  var isOffer = /^offer-/.test(asset);
+
+  // ---- Campaign tags in the address. Read from the link, kept nowhere. ----
+  var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+  var tags = {};
+  (loc.search || '').replace(/^\?/, '').split('&').forEach(function (kv) {
+    var i = kv.indexOf('=');
+    if (i < 1) return;
+    var k = kv.slice(0, i), v;
+    if (UTM.indexOf(k) < 0) return;
+    try { v = decodeURIComponent(kv.slice(i + 1).replace(/\+/g, ' ')); } catch (e) { return; }
+    if (/^[A-Za-z0-9 ._-]{1,64}$/.test(v)) tags[k] = v;
+  });
+
+  // ---- The reference in the email subject: experiment id and variant, e.g. " [ref e1-a]". ----
+  function reference() {
+    var c = (tags.utm_campaign || '').toLowerCase().split('-')[0];
+    if (!/^[a-z0-9]{1,8}$/.test(c)) return '';
+    var v = (tags.utm_content || '').toLowerCase();
+    return c + (/^[a-z0-9]{1,8}$/.test(v) ? '-' + v : '');
+  }
+  var ref = isOffer ? reference() : '';
+  var suffix = ref ? ' [ref ' + ref + ']' : '';
+  if (suffix) {
+    [].forEach.call(d.querySelectorAll('a[href^="mailto:"]'), function (a) {
+      var href = a.getAttribute('href'), q = href.indexOf('?');
+      if (q < 0) return;
+      var parts = href.slice(q + 1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        if (parts[i].indexOf('subject=') === 0) parts[i] = 'subject=' + encodeURIComponent(decodeURIComponent(parts[i].slice(8)) + suffix);
+      }
+      a.setAttribute('href', href.slice(0, q + 1) + parts.join('&'));
+    });
+    [].forEach.call(d.querySelectorAll('[data-subject]'), function (el) { el.textContent += suffix; });
+  }
+
+  // ---- The visit counter. Not loaded at all when the browser asks not to be tracked. ----
+  var optedOut = nav.globalPrivacyControl === true || nav.doNotTrack === '1' || w.doNotTrack === '1' || nav.msDoNotTrack === '1';
+  var queue = [], ph = null, sent = {};
+  function track(name, props, once) {
+    if (optedOut || !isOffer && name === 'order_intent') return;
+    if (once) { if (sent[once]) return; sent[once] = 1; }
+    var p = { offer: page };
+    for (var k in props) p[k] = props[k];
+    for (var t in tags) p[t] = tags[t];
+    if (ph) ph.capture(name, p, { transport: 'sendBeacon', send_instantly: true }); else if (queue.length < 10) queue.push([name, p]);
+  }
+
+  var ALLOWED_EVENTS = { '$pageview': 1, '$pageleave': 1, sample_click: 1, order_intent: 1 };
+  var ALLOWED_PROPS = { token: 1, distinct_id: 1, offer: 1, method: 1, utm_source: 1, utm_medium: 1, utm_campaign: 1, utm_content: 1, utm_term: 1 };
+  // Ad click identifiers that posthog-js lifts from the address: none is wanted, whatever the ad platform appends.
+  var CLICK_IDS = ['li_fat_id', 'gad_source', 'mc_cid', 'gclid', 'gclsrc', 'dclid', 'gbraid', 'wbraid', 'fbclid', 'msclkid', 'twclid', 'igshid', 'ttclid', 'rdt_cid', 'epik', 'qclid', 'sccid', 'oppref', 'bfcid', 'irclid', '_kx'];
+  function beforeSend(cp) {
+    if (!cp || !ALLOWED_EVENTS[cp.event]) return null;
+    for (var i = 0; i < CLICK_IDS.length; i++) delete cp.properties[CLICK_IDS[i]];
+    if (cp.event.charAt(0) !== '$') {
+      var keep = {};
+      for (var k in cp.properties) if (ALLOWED_PROPS[k] || k.charAt(0) === '$') keep[k] = cp.properties[k];
+      cp.properties = keep;
+    }
+    delete cp.$set; delete cp.$set_once;
+    return cp;
+  }
+
+  if (!optedOut) {
+    var s = d.createElement('script');
+    s.async = true;
+    s.src = C.api_host.replace(/\/$/, '') + '/static/array.js';
+    s.onload = function () {
+      var lib = w.posthog;
+      if (!lib || typeof lib.init !== 'function') return;
+      lib.init(C.token, {
+        api_host: C.api_host,
+        ui_host: C.ui_host,
+        cookieless_mode: 'always',
+        person_profiles: 'never',
+        persistence: 'memory',
+        ip: false,
+        respect_dnt: true,
+        autocapture: false,
+        capture_pageview: true,
+        capture_pageleave: true,
+        capture_dead_clicks: false,
+        capture_exceptions: false,
+        capture_performance: false,
+        enable_heatmaps: false,
+        disable_session_recording: true,
+        disable_surveys: true,
+        advanced_disable_feature_flags: true,
+        advanced_disable_feature_flags_on_first_load: true,
+        disable_external_dependency_loading: true,
+        before_send: beforeSend
+      });
+      ph = lib;
+      while (queue.length) { var q = queue.shift(); ph.capture(q[0], q[1], { transport: 'sendBeacon', send_instantly: true }); }
+    };
+    d.head.appendChild(s);
+  }
+
+  // ---- The three events. Links are read when clicked, so nothing is added to them. ----
+  var SAMPLE = /^https:\/\/github\.com\/cedarwood-studio\/(ci-diagnostic-sample|upgrade-roadmap-sample)(\/|$|\?|#)/;
+  d.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (/^mailto:/i.test(href) && href.indexOf('?subject=') > 0) track('order_intent', { method: 'mailto' }, 'mailto');
+    else if (SAMPLE.test(href)) track('sample_click', {});
+  }, true);
+
+  // ---- The visible address, for people whose mail program does not open. ----
+  function copyText(text, done) {
+    function fallback() {
+      var t = d.createElement('textarea');
+      t.value = text; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
+      d.body.appendChild(t); t.select();
+      try { d.execCommand('copy'); } catch (e) { /* the text is on screen to select */ }
+      d.body.removeChild(t); done();
+    }
+    if (nav.clipboard && nav.clipboard.writeText) nav.clipboard.writeText(text).then(done, fallback); else fallback();
+  }
+  [].forEach.call(d.querySelectorAll('[data-copy]'), function (btn) {
+    btn.hidden = false;
+    var label = btn.textContent;
+    btn.addEventListener('click', function () {
+      var what = btn.getAttribute('data-copy');
+      var text = what === 'subject' ? (d.querySelector('[data-subject]') || {}).textContent || '' : ADDRESS;
+      copyText(text, function () {
+        btn.textContent = 'Copied';
+        setTimeout(function () { btn.textContent = label; }, 2000);
+      });
+      track('order_intent', { method: 'copy' }, 'copy');
+    });
+  });
+  // The address copied by hand counts the same, once.
+  d.addEventListener('copy', function () {
+    var s = w.getSelection ? w.getSelection() : null;
+    if (!s || String(s).indexOf(ADDRESS) < 0) return;
+    var n = s.anchorNode && (s.anchorNode.nodeType === 1 ? s.anchorNode : s.anchorNode.parentNode);
+    if (n && n.closest && n.closest('footer')) return;
+    track('order_intent', { method: 'copy' }, 'copy');
+  });
+})();
+</script>
+</body>
+</html>

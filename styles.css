@@ -691,6 +691,8 @@ table.versions.wide { min-width: 44rem; }
 table.versions.labels td:first-child { white-space: normal; min-width: 9rem; }
 /* Code in a cell breaks only where the source allows (a <wbr> after each slash of a path). */
 table.versions code { overflow-wrap: normal; }
+/* A measurement with its unit stays on one line. */
+table.versions td.num { white-space: nowrap; }
 
 /* Launch additions: the dated line under a page head, the coverage line beside a price, lists inside steps. */
 .updated { font-family: var(--font-mono); font-size: var(--t-xs); color: var(--fg-2); }
@@ -776,3 +778,8 @@ a, .cta, .scorecard button { transition: color 120ms linear, background-color 12
   .site-nav, .skip, .scorecard button { display: none; }
   .report-card { box-shadow: none; }
 }
+
+/* A phone screenshot, taken at 2x: drawn at the phone's own width (390px) at most, never stretched to the
+   column, and narrowed to the column on a phone, where its sizes attribute keeps it sharp. */
+.prose > figure.phone { max-width: calc(390px + 2px); }
+figure.phone .shot a { min-width: 0; }

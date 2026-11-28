@@ -771,6 +771,109 @@ a, .cta, .scorecard button { transition: color 120ms linear, background-color 12
   }
 }
 
+/* --- home page bands (2026-11-28) -----------------------------------------
+   Each band is its own block, styled by its own classes, so a band can be restyled,
+   reordered or given texture later without touching the others. All type and rules:
+   square corners, no icons, no gradients, no blurred shadows. */
+
+/* 01: a sentence set large in the display face, then the kinds of app as ruled tiles.
+   .build-grid holds the tiles alone; add a figure.frame after the list and the class
+   .with-shot to set a screenshot beside them (tiles go two by two). */
+.statement {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(1.75rem, 1.1rem + 2.2vw, 2.75rem); line-height: 1.12; letter-spacing: -0.015em;
+  max-width: 24em; text-wrap: balance;
+}
+.build-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem 3rem; align-items: start; }
+.kinds {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr));
+  border-top: 1.5px solid var(--line-strong);
+}
+.kinds > li {
+  padding: 1.125rem 1.25rem 1.375rem 0; border-bottom: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: 0.375rem; font-size: var(--t-s); color: var(--fg-2);
+}
+.kinds .k-no { font-family: var(--font-mono); font-size: var(--t-xs); color: var(--accent); }
+.kinds .k-name { font-family: var(--font-display); font-size: 1.375rem; line-height: 1.15; color: var(--fg); }
+@media (min-width: 52rem) {
+  .build-grid:not(.with-shot) .kinds > li { padding-left: 1.25rem; border-left: 1px solid var(--line); }
+  .build-grid:not(.with-shot) .kinds > li:first-child { padding-left: 0; border-left: 0; }
+}
+@media (min-width: 61.5rem) {
+  .build-grid.with-shot { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+}
+.build-grid.with-shot .kinds { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.build-grid.with-shot .kinds > li:nth-child(even) { padding-left: 1.25rem; border-left: 1px solid var(--line); }
+@media (max-width: 34rem) {
+  .build-grid.with-shot .kinds { grid-template-columns: 1fr; }
+  .build-grid.with-shot .kinds > li:nth-child(even) { padding-left: 0; border-left: 0; }
+}
+
+/* 02: two doors, each a group label, a heading and its ledger rows. The doors stack on a phone. */
+.doors { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(30rem, 100%), 1fr)); gap: 3rem 3.5rem; align-items: start; }
+.door { display: flex; flex-direction: column; gap: 1rem; }
+.door-head { display: flex; flex-direction: column; gap: 0.5rem; }
+.door-head h3 { font-size: 1.75rem; line-height: 1.12; }
+.door .ledger-row { padding: 1rem 0 1.125rem; }
+.door .ledger .name { flex: 1 1 10rem; }
+.door .ledger .price { flex: 0 0 auto; text-align: right; order: 0; }
+.door .ledger .what { flex: 1 1 100%; order: 3; font-size: var(--t-s); color: var(--fg-2); }
+.door .ledger-row .name a { font-size: 1.4375rem; }
+
+/* 03: a screenshot in a frame (the report card's border and flat shadow), beside stat tiles.
+   One <picture> picks the year view or, below 40rem, the phone screenshot, so only one image loads. */
+.showcase { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.5rem 3.5rem; align-items: start; }
+/* Side by side only where the frame stays at least 600px wide, the width a screenshot is readable at. */
+@media (min-width: 75rem) { .showcase { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); } }
+.frame { border: 1px solid var(--line-strong); background: var(--bg-report); box-shadow: 8px 8px 0 var(--flat-shadow); margin: 0 8px 0 0; }
+.frame-bar {
+  display: flex; justify-content: space-between; gap: 1rem; padding: 0.5rem 0.875rem;
+  border-bottom: 1px solid var(--line-strong);
+  font-family: var(--font-mono); font-size: var(--t-label); letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg-2);
+}
+.frame a { display: block; }
+.frame img { display: block; width: 100%; height: auto; }
+.frame figcaption { margin: 0; padding: 0.625rem 0.875rem; border-top: 1px solid var(--line); }
+@media (max-width: 40rem) {
+  .frame { max-width: 20rem; }
+  .frame img { max-height: 26rem; object-fit: cover; object-position: center 72%; }
+}
+.showcase-copy { display: flex; flex-direction: column; gap: 1.25rem; }
+.stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1.5px solid var(--line-strong); }
+.stat { padding: 1rem 1rem 1.125rem 0; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 0.375rem; min-width: 0; }
+.stat:nth-child(even) { padding-left: 1rem; border-left: 1px solid var(--line); }
+.stat .fig { font-family: var(--font-mono); font-weight: 500; font-size: clamp(0.9375rem, 0.75rem + 0.8vw, 1.25rem); line-height: 1.2; font-variant-numeric: tabular-nums; }
+.stat .fig .from, .stat .fig .to { white-space: nowrap; }
+.stat .fig .from { color: var(--fg-2); font-weight: 400; }
+.stat .lbl { font-size: 0.8125rem; line-height: 1.4; color: var(--fg-2); }
+
+/* 04: the site's steps, four across on a wide screen, each with a short heading and, where money moves, a mono line. */
+.steps.four { grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr)); }
+.steps .s-h { display: block; font-family: var(--font-display); font-size: 1.3125rem; line-height: 1.2; margin-bottom: 0.375rem; }
+.steps .s-pay { display: block; margin-top: 0.625rem; font-family: var(--font-mono); font-size: var(--t-xs); color: var(--fg-2); }
+
+/* 05: checkable facts as a numbered two-column ruled list, then the guarantee in a bordered box (the sheet's ground). */
+.checks { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(22rem, 100%), 1fr)); column-gap: 3rem; border-top: 1.5px solid var(--line-strong); }
+.checks > li { padding: 1rem 0 1.125rem; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 2.25rem minmax(0, 1fr); gap: 0 0.5rem; }
+.checks .c-no { font-family: var(--font-mono); font-size: var(--t-xs); color: var(--accent); padding-top: 0.25rem; }
+.checks strong { display: block; font-weight: 600; }
+.checks .t { color: var(--fg-2); font-size: var(--t-s); }
+.guarantee { border: 1.5px solid var(--line-strong); background: var(--bg-sheet); padding: 1.25rem 1.375rem; display: flex; flex-direction: column; gap: 0.5rem; max-width: 46rem; }
+.guarantee .sheet-label { color: var(--accent); }
+
+/* 06: what was measured beside a report card. */
+.running { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2.5rem 3.5rem; align-items: start; }
+@media (max-width: 61.5rem) { .running { grid-template-columns: minmax(0, 1fr); } }
+.running .report-table th:first-child,
+.running .report-table td:first-child { font-family: var(--font-mono); font-size: 0.78rem; white-space: nowrap; padding-right: 0.75rem; }
+
+/* 07: the identity passage beside the business facts. */
+.studio { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem 3.5rem; align-items: start; }
+@media (max-width: 61.5rem) { .studio { grid-template-columns: minmax(0, 1fr); } }
+.studio dl.facts { border-top: 1.5px solid var(--line-strong); }
+@media (min-width: 40rem) { .studio dl.facts { grid-template-columns: 9rem minmax(0, 1fr); } }
+
 /* --- print ---------------------------------------------------------------- */
 
 @media print {

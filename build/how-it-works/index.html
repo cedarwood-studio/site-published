@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How a custom web app build works | Cedarwood Studio</title>
+<meta name="description" content="How a Cedarwood Studio web app build runs: the steps, production ready item by item, what it's built on, running costs, going live and who owns the code.">
+<link rel="canonical" href="https://cedarwood.studio/build/how-it-works/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cedarwood Studio">
+<meta property="og:title" content="How a custom web app build works | Cedarwood Studio">
+<meta property="og:description" content="How a Cedarwood Studio web app build runs: the steps, production ready item by item, what it's built on, running costs, going live and who owns the code.">
+<meta property="og:url" content="https://cedarwood.studio/build/how-it-works/">
+<meta property="og:image" content="https://cedarwood.studio/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../styles.css">
+
+</head>
+<body data-asset="offer-build/how-it-works">
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="lockup" href="../.././" aria-label="Cedarwood Studio by Jack Senechal, home">
+      <span class="lockup-name">Cedarwood Studio<span class="stop" aria-hidden="true"></span></span>
+      <span class="lockup-rule" aria-hidden="true"></span>
+      <span class="lockup-credit">by Jack Senechal</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="../../work/">Work</a></li>
+        <li><a href="../../about/">About</a></li>
+        <li><a class="cta small" href="../../#services">Services and prices</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="page-head wrap">
+  <p class="eyebrow">Custom web apps</p>
+  <h1>How a custom web app build works</h1>
+  <p class="lead measure">A build runs to a written scope at a fixed price, from your first email to the code in a repository you own. This page is the detail behind the <a href="../../build/">custom web app page</a>, and the <a href="../../terms/#builds">terms</a> have the full rules.</p>
+  <p class="updated">Last updated <time datetime="2026-11-28">November 28, 2026</time></p>
+</section>
+
+<section class="band" id="steps"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">01</span>
+    <h2>What are the steps?</h2>
+  </div>
+  <div class="split-body prose">
+  <p>Six steps, by email apart from the walkthrough. We work with businesses only.</p>
+  <ol class="steps">
+    <li><strong>Your email.</strong> A few lines on what the app is for and who will use it, sent to <a href="mailto:hello@cedarwood.studio?subject=New%20app&amp;body=Hello%2C%0A%0AWe'd%20like%20a%20fixed%20quote%20for%20a%20new%20app.%20Here's%20what%20you%20asked%20for%3A%0A%0AWhat%20it's%20for%20and%20who%20will%20use%20it%3A%0A%0AThe%20three%20to%20five%20things%20someone%20must%20be%20able%20to%20do%20with%20it%3A%0A%0AAnything%20it%20connects%20to%20(sign-in%2C%20payments%2C%20email%2C%20other%20systems)%3A%0A%0AA%20date%20that%20matters%2C%20if%20there%20is%20one%3A%0A%0AHow%20you%20found%20us%3A%0A">hello@cedarwood.studio</a>. Please don't send real customer records at this stage.</li>
+    <li><strong>Questions both ways.</strong> We reply with a few questions, none of them technical, each with what we'll assume if you're not sure, so "fine" is a complete answer. Until you accept a scope, there's no charge for this.</li>
+    <li><strong>A written scope with a fixed price.</strong> The features in your words, the acceptance checks you'll try yourself, the production-ready list below, the delivery date, the price and any add-ons with their prices. You accept it by email, and from then on the price and the scope change only through a change order that you accept in writing, and the date moves only for that or for delays on your side.</li>
+    <li><strong>The build.</strong> You pay the first half by card through Stripe when you accept the scope. We build the app in our own private repository and run it on a private demo with made-up data, so none of your accounts are needed.</li>
+    <li><strong>Delivery and a walkthrough.</strong> We walk you through every acceptance check on the demo, recorded for you to keep, and you try them yourself. One round of changes is included. The second half is due once every check passes and the work is accepted.</li>
+    <li><strong>The handover.</strong> We transfer the repository to you, and you put the app live in accounts in your name with our step-by-step guide and our help by message. The 30-day fix window starts that day.</li>
+  </ol>
+  </div>
+</div></section>
+
+<section class="band" id="ready"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">02</span>
+    <h2>What does "production ready" mean, item by item?</h2>
+  </div>
+  <div class="split-body prose">
+  <p>Each of these is delivered, and the handover document shows the evidence for each. Your scope lists them for your app.</p>
+  <ul>
+    <li><strong>Tests for everything you'll check.</strong> Every acceptance check in your scope has an automated test that does what the check describes, in a real browser. The handover says which test covers which check.</li>
+    <li><strong>Tests on every change.</strong> They run on their own each time the code changes, and a change that fails them is flagged before it goes live.</li>
+    <li><strong>Security checks.</strong> Each kind of user can see and change only what the scope says, tried against the server directly as well as through the screens. No passwords or keys in the code. Every library the app builds on is checked for known security problems. Forms refuse bad input, the app is served over HTTPS only, and repeated failed sign-ins are slowed down.</li>
+    <li><strong>Errors handled and logged.</strong> When something fails, people see a clear message instead of a crash page. The error is logged with enough detail to find the cause, and without passwords or card details.</li>
+    <li><strong>Backups that work.</strong> Automatic database backups are part of the setup, and we restore one on the demo before delivery to show it works.</li>
+    <li><strong>A deployment you own.</strong> You put the app live in accounts in your name, with you as the top administrator, following our written guide. You type every password and key yourself, and we never ask for them.</li>
+    <li><strong>A handover document.</strong> How the app fits together, how to run the tests and ship a change, every account it uses and what each costs, how to restore a backup, and what to do if it stops working.</li>
+    <li><strong>A walkthrough.</strong> We walk you through every acceptance check on the demo, recorded for you to keep.</li>
+  </ul>
+  <p>The security checks are part of our own delivery checklist. They aren't a security audit, a penetration test or a certification.</p>
+  </div>
+</div></section>
+
+<section class="band" id="stack"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">03</span>
+    <h2>What is it built on?</h2>
+  </div>
+  <div class="split-body prose">
+  <p>By default, TypeScript, running on Cloudflare. Cloudflare has a free plan that's enough for many small apps. The database and any other services are chosen in your scope, which names every service the app uses and what each costs.</p>
+  <p>The code is standard TypeScript, in a repository you own, and any developer who knows TypeScript can work on it. The handover lists every open-source library in it with its license. If you need a different language, framework or host, say so in your first email, and we'll tell you whether we can build it that way, and at what price, before you commit.</p>
+  </div>
+</div></section>
+
+<section class="band" id="running-costs"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">04</span>
+    <h2>What will it cost to run?</h2>
+  </div>
+  <div class="split-body prose">
+  <p>Hosting, the domain, email sending and payment fees are billed to you directly by those providers, in accounts in your name. Your scope estimates each one before you pay, and the handover lists every account and what it costs.</p>
+  </div>
+</div></section>
+
+<section class="band" id="live"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">05</span>
+    <h2>How does it go live?</h2>
+  </div>
+  <div class="split-body prose">
+  <p>Every build comes with a written step-by-step guide to putting the app live in your own accounts, and during the fix window we answer your questions by message while you follow it. More help is optional, and your scope names each item with its price before you pay.</p>
+  <ul>
+    <li><strong>A live deployment call.</strong> We stay on a video call, for up to the time your scope states, while you put the app live, following the guide with you. You share your screen, and you pause the share while you paste a password or key.</li>
+    <li><strong>Account setup and hand-off.</strong> We create a new hosting account for your business, put the app live there and hand the account over to you. Until the hand-off we hold its access. At the hand-off you become its owner with your own sign-in, our access ends, and we confirm that in writing. You then add the keys of your other accounts, such as payments or email, yourself.</li>
+    <li><strong>Installation on hosting you already have.</strong> If you'd like the app on hosting or systems you already run, we tell you first whether it can run there, then adapt it and the guide to them and take you or your developer through the installation. It's billed by the hour at the rate in your scope, up to a cap you approve before we start, and it sits outside the fixed price and its refunds. A defect in the app's own code that also shows on the demo, or when the app is put live as our guide says, is still covered by the fix window.</li>
+  </ul>
+  </div>
+</div></section>
+
+<section class="band" id="ownership"><div class="wrap split">
+  <div class="rail">
+    <span class="rail-num">06</span>
+    <h2>Who owns the code?</h2>
+  </div>
+  <div class="split-body prose">
+  <p>You do, once it's paid for: the code, the repository with its history, the tests and the documents. We transfer the repository to you within 2 business days of the second payment, and the <a href="../../terms/#builds">terms</a> say what happens to our copies after that.</p>
+  </div>
+</div></section>
+
+<section class="band ink" aria-labelledby="next-h"><div class="wrap pair">
+  <div class="stack stack-3">
+  <h2 id="next-h">Next step</h2>
+  <p class="measure">Send a few lines on what the app is for and who will use it. We'll reply with a few questions, then a written scope and a fixed price, from $2,500. <a href="../../build/questions/">Questions buyers ask</a>.</p>
+  <p><a class="cta" href="mailto:hello@cedarwood.studio?subject=New%20app&amp;body=Hello%2C%0A%0AWe'd%20like%20a%20fixed%20quote%20for%20a%20new%20app.%20Here's%20what%20you%20asked%20for%3A%0A%0AWhat%20it's%20for%20and%20who%20will%20use%20it%3A%0A%0AThe%20three%20to%20five%20things%20someone%20must%20be%20able%20to%20do%20with%20it%3A%0A%0AAnything%20it%20connects%20to%20(sign-in%2C%20payments%2C%20email%2C%20other%20systems)%3A%0A%0AA%20date%20that%20matters%2C%20if%20there%20is%20one%3A%0A%0AHow%20you%20found%20us%3A%0A">Email for a fixed quote</a></p>
+  <p class="note"><span class="webmail" data-webmail>No mail program opens? Send to <span class="mono">hello@cedarwood.studio</span> with the subject <span class="mono" data-subject>New app</span>. <button type="button" class="copy" data-copy="email" hidden>Copy address</button> <button type="button" class="copy" data-copy="subject" hidden>Copy subject</button></span></p>
+  </div>
+  <div class="lockup-stacked" aria-hidden="true">
+    <span class="lockup-name"><span>Cedarwood</span><span>Studio<span class="stop"></span></span></span>
+    <span class="lockup-credit">by Jack Senechal</span>
+  </div>
+</div></section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-in">
+    <p class="legal">&copy; 2026 Cedarwood Studio by Jack Senechal. <a href="mailto:hello@cedarwood.studio">hello@cedarwood.studio</a></p>
+    <ul class="footer-links">
+      <li><a href="../../rails-upgrade-roadmap/">Rails Upgrade Roadmap</a></li>
+      <li><a href="../../nodejs-upgrade-roadmap/">Node.js Upgrade Roadmap</a></li>
+      <li><a href="../../github-actions-ci-diagnostic/">CI Diagnostic</a></li>
+      <li><a href="../../rails-7-1-to-8-upgrade-what-broke/">What a Rails 7.1 to 8.0 upgrade broke</a></li>
+      <li><a href="../../how-risky-is-a-rails-upgrade/">How risky is a Rails upgrade?</a></li>
+      <li><a href="../../terms/">Terms, refunds and cancellation</a></li>
+      <li><a href="../../privacy/">Privacy</a></li>
+      <li><a href="../../work/">Work</a></li>
+      <li><a href="../../about/">About</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var C = {"token":"phc_kQcpSHKJ3cC7HJokpxcdp9Bpbze7tQxDWkUzfL3CoDRx","api_host":"https://e.cedarwood.studio","ui_host":"https://eu.posthog.com","email":"hello@cedarwood.studio"};
+  var w = window, d = document, nav = navigator, loc = w.location;
+  var ADDRESS = C.email;
+  var asset = (d.body && d.body.getAttribute('data-asset')) || '';
+  var page = asset.replace(/^(offer|answer|page)-/, '');
+  var isOffer = /^offer-/.test(asset);
+
+  // ---- Campaign tags in the address. Read from the link, kept nowhere. ----
+  var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+  var tags = {};
+  (loc.search || '').replace(/^\?/, '').split('&').forEach(function (kv) {
+    var i = kv.indexOf('=');
+    if (i < 1) return;
+    var k = kv.slice(0, i), v;
+    if (UTM.indexOf(k) < 0) return;
+    try { v = decodeURIComponent(kv.slice(i + 1).replace(/\+/g, ' ')); } catch (e) { return; }
+    if (/^[A-Za-z0-9 ._-]{1,64}$/.test(v)) tags[k] = v;
+  });
+
+  // ---- The reference in the email subject: experiment id and variant, e.g. " [ref e1-a]". ----
+  function reference() {
+    var c = (tags.utm_campaign || '').toLowerCase().split('-')[0];
+    if (!/^[a-z0-9]{1,8}$/.test(c)) return '';
+    var v = (tags.utm_content || '').toLowerCase();
+    return c + (/^[a-z0-9]{1,8}$/.test(v) ? '-' + v : '');
+  }
+  var ref = isOffer ? reference() : '';
+  var suffix = ref ? ' [ref ' + ref + ']' : '';
+  if (suffix) {
+    [].forEach.call(d.querySelectorAll('a[href^="mailto:"]'), function (a) {
+      var href = a.getAttribute('href'), q = href.indexOf('?');
+      if (q < 0) return;
+      var parts = href.slice(q + 1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        if (parts[i].indexOf('subject=') === 0) parts[i] = 'subject=' + encodeURIComponent(decodeURIComponent(parts[i].slice(8)) + suffix);
+      }
+      a.setAttribute('href', href.slice(0, q + 1) + parts.join('&'));
+    });
+    [].forEach.call(d.querySelectorAll('[data-subject]'), function (el) { el.textContent += suffix; });
+  }
+
+  // ---- The visit counter. Not loaded at all when the browser asks not to be tracked. ----
+  var optedOut = nav.globalPrivacyControl === true || nav.doNotTrack === '1' || w.doNotTrack === '1' || nav.msDoNotTrack === '1';
+  var queue = [], ph = null, sent = {};
+  function track(name, props, once) {
+    if (optedOut || !isOffer && name === 'order_intent') return;
+    if (once) { if (sent[once]) return; sent[once] = 1; }
+    var p = { offer: page };
+    for (var k in props) p[k] = props[k];
+    for (var t in tags) p[t] = tags[t];
+    if (ph) ph.capture(name, p, { transport: 'sendBeacon', send_instantly: true }); else if (queue.length < 10) queue.push([name, p]);
+  }
+
+  var ALLOWED_EVENTS = { '$pageview': 1, '$pageleave': 1, sample_click: 1, order_intent: 1 };
+  var ALLOWED_PROPS = { token: 1, distinct_id: 1, offer: 1, method: 1, utm_source: 1, utm_medium: 1, utm_campaign: 1, utm_content: 1, utm_term: 1 };
+  // Ad click identifiers that posthog-js lifts from the address: none is wanted, whatever the ad platform appends.
+  var CLICK_IDS = ['li_fat_id', 'gad_source', 'mc_cid', 'gclid', 'gclsrc', 'dclid', 'gbraid', 'wbraid', 'fbclid', 'msclkid', 'twclid', 'igshid', 'ttclid', 'rdt_cid', 'epik', 'qclid', 'sccid', 'oppref', 'bfcid', 'irclid', '_kx'];
+  function beforeSend(cp) {
+    if (!cp || !ALLOWED_EVENTS[cp.event]) return null;
+    for (var i = 0; i < CLICK_IDS.length; i++) delete cp.properties[CLICK_IDS[i]];
+    if (cp.event.charAt(0) !== '$') {
+      var keep = {};
+      for (var k in cp.properties) if (ALLOWED_PROPS[k] || k.charAt(0) === '$') keep[k] = cp.properties[k];
+      cp.properties = keep;
+    }
+    delete cp.$set; delete cp.$set_once;
+    return cp;
+  }
+
+  if (!optedOut) {
+    var s = d.createElement('script');
+    s.async = true;
+    s.src = C.api_host.replace(/\/$/, '') + '/static/array.js';
+    s.onload = function () {
+      var lib = w.posthog;
+      if (!lib || typeof lib.init !== 'function') return;
+      lib.init(C.token, {
+        api_host: C.api_host,
+        ui_host: C.ui_host,
+        cookieless_mode: 'always',
+        person_profiles: 'never',
+        persistence: 'memory',
+        ip: false,
+        respect_dnt: true,
+        autocapture: false,
+        capture_pageview: true,
+        capture_pageleave: true,
+        capture_dead_clicks: false,
+        capture_exceptions: false,
+        capture_performance: false,
+        enable_heatmaps: false,
+        disable_session_recording: true,
+        disable_surveys: true,
+        advanced_disable_feature_flags: true,
+        advanced_disable_feature_flags_on_first_load: true,
+        disable_external_dependency_loading: true,
+        before_send: beforeSend
+      });
+      ph = lib;
+      while (queue.length) { var q = queue.shift(); ph.capture(q[0], q[1], { transport: 'sendBeacon', send_instantly: true }); }
+    };
+    d.head.appendChild(s);
+  }
+
+  // ---- The three events. Links are read when clicked, so nothing is added to them. ----
+  var SAMPLE = /^https:\/\/github\.com\/cedarwood-studio\/(ci-diagnostic-sample|upgrade-roadmap-sample)(\/|$|\?|#)/;
+  d.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (/^mailto:/i.test(href) && href.indexOf('?subject=') > 0) track('order_intent', { method: 'mailto' }, 'mailto');
+    else if (SAMPLE.test(href)) track('sample_click', {});
+  }, true);
+
+  // ---- The visible address, for people whose mail program does not open. ----
+  function copyText(text, done) {
+    function fallback() {
+      var t = d.createElement('textarea');
+      t.value = text; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
+      d.body.appendChild(t); t.select();
+      try { d.execCommand('copy'); } catch (e) { /* the text is on screen to select */ }
+      d.body.removeChild(t); done();
+    }
+    if (nav.clipboard && nav.clipboard.writeText) nav.clipboard.writeText(text).then(done, fallback); else fallback();
+  }
+  [].forEach.call(d.querySelectorAll('[data-copy]'), function (btn) {
+    btn.hidden = false;
+    var label = btn.textContent;
+    btn.addEventListener('click', function () {
+      var what = btn.getAttribute('data-copy');
+      var text = what === 'subject' ? (d.querySelector('[data-subject]') || {}).textContent || '' : ADDRESS;
+      copyText(text, function () {
+        btn.textContent = 'Copied';
+        setTimeout(function () { btn.textContent = label; }, 2000);
+      });
+      track('order_intent', { method: 'copy' }, 'copy');
+    });
+  });
+  // The address copied by hand counts the same, once.
+  d.addEventListener('copy', function () {
+    var s = w.getSelection ? w.getSelection() : null;
+    if (!s || String(s).indexOf(ADDRESS) < 0) return;
+    var n = s.anchorNode && (s.anchorNode.nodeType === 1 ? s.anchorNode : s.anchorNode.parentNode);
+    if (n && n.closest && n.closest('footer')) return;
+    track('order_intent', { method: 'copy' }, 'copy');
+  });
+})();
+</script>
+</body>
+</html>
